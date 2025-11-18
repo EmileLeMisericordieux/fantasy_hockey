@@ -1,0 +1,1816 @@
+[
+    {
+        "gameId": 2024021306,
+        "teamAbbrev": "EDM",
+        "homeRoadFlag": "R",
+        "gameDate": "2025-04-16",
+        "goals": 0,
+        "assists": 1,
+        "commonName": {
+            "default": "Oilers"
+        },
+        "opponentCommonName": {
+            "default": "Sharks"
+        },
+        "points": 1,
+        "plusMinus": 1,
+        "powerPlayGoals": 0,
+        "powerPlayPoints": 0,
+        "gameWinningGoals": 0,
+        "otGoals": 0,
+        "shots": 1,
+        "shifts": 16,
+        "shorthandedGoals": 0,
+        "shorthandedPoints": 0,
+        "opponentAbbrev": "SJS",
+        "pim": 0,
+        "toi": "17:31"
+    },
+    {
+        "gameId": 2024021282,
+        "teamAbbrev": "EDM",
+        "homeRoadFlag": "R",
+        "gameDate": "2025-04-13",
+        "goals": 0,
+        "assists": 2,
+        "commonName": {
+            "default": "Oilers"
+        },
+        "opponentCommonName": {
+            "default": "Jets"
+        },
+        "points": 2,
+        "plusMinus": 3,
+        "powerPlayGoals": 0,
+        "powerPlayPoints": 0,
+        "gameWinningGoals": 0,
+        "otGoals": 0,
+        "shots": 4,
+        "shifts": 21,
+        "shorthandedGoals": 0,
+        "shorthandedPoints": 0,
+        "opponentAbbrev": "WPG",
+        "pim": 0,
+        "toi": "19:56"
+    },
+    {
+        "gameId": 2024021263,
+        "teamAbbrev": "EDM",
+        "homeRoadFlag": "H",
+        "gameDate": "2025-04-11",
+        "goals": 0,
+        "assists": 4,
+        "commonName": {
+            "default": "Oilers"
+        },
+        "opponentCommonName": {
+            "default": "Sharks"
+        },
+        "points": 4,
+        "plusMinus": 2,
+        "powerPlayGoals": 0,
+        "powerPlayPoints": 2,
+        "gameWinningGoals": 0,
+        "otGoals": 0,
+        "shots": 4,
+        "shifts": 18,
+        "shorthandedGoals": 0,
+        "shorthandedPoints": 0,
+        "opponentAbbrev": "SJS",
+        "pim": 2,
+        "toi": "23:37"
+    },
+    {
+        "gameId": 2024021248,
+        "teamAbbrev": "EDM",
+        "homeRoadFlag": "H",
+        "gameDate": "2025-04-09",
+        "goals": 0,
+        "assists": 3,
+        "commonName": {
+            "default": "Oilers"
+        },
+        "opponentCommonName": {
+            "default": "Blues"
+        },
+        "points": 3,
+        "plusMinus": 3,
+        "powerPlayGoals": 0,
+        "powerPlayPoints": 0,
+        "gameWinningGoals": 0,
+        "otGoals": 0,
+        "shots": 0,
+        "shifts": 24,
+        "shorthandedGoals": 0,
+        "shorthandedPoints": 0,
+        "opponentAbbrev": "STL",
+        "pim": 4,
+        "toi": "20:35"
+    },
+    {
+        "gameId": 2024021099,
+        "teamAbbrev": "EDM",
+        "homeRoadFlag": "H",
+        "gameDate": "2025-03-20",
+        "goals": 0,
+        "assists": 1,
+        "commonName": {
+            "default": "Oilers"
+        },
+        "opponentCommonName": {
+            "default": "Jets"
+        },
+        "points": 1,
+        "plusMinus": 1,
+        "powerPlayGoals": 0,
+        "powerPlayPoints": 0,
+        "gameWinningGoals": 0,
+        "otGoals": 0,
+        "shots": 0,
+        "shifts": 14,
+        "shorthandedGoals": 0,
+        "shorthandedPoints": 0,
+        "opponentAbbrev": "WPG",
+        "pim": 0,
+        "toi": "14:59"
+    },
+    {
+        "gameId": 2024021085,
+        "teamAbbrev": "EDM",
+        "homeRoadFlag": "H",
+        "gameDate": "2025-03-18",
+        "goals": 1,
+        "assists": 2,
+        "commonName": {
+            "default": "Oilers"
+        },
+        "opponentCommonName": {
+            "default": "Utah Hockey Club",
+            "fr": "Club de hockey de l'Utah"
+        },
+        "points": 3,
+        "plusMinus": 4,
+        "powerPlayGoals": 0,
+        "powerPlayPoints": 0,
+        "gameWinningGoals": 0,
+        "otGoals": 0,
+        "shots": 4,
+        "shifts": 18,
+        "shorthandedGoals": 0,
+        "shorthandedPoints": 0,
+        "opponentAbbrev": "UTA",
+        "pim": 0,
+        "toi": "16:46"
+    },
+    {
+        "gameId": 2024021069,
+        "teamAbbrev": "EDM",
+        "homeRoadFlag": "R",
+        "gameDate": "2025-03-16",
+        "goals": 1,
+        "assists": 0,
+        "commonName": {
+            "default": "Oilers"
+        },
+        "opponentCommonName": {
+            "default": "Rangers"
+        },
+        "points": 1,
+        "plusMinus": 1,
+        "powerPlayGoals": 0,
+        "powerPlayPoints": 0,
+        "gameWinningGoals": 0,
+        "otGoals": 0,
+        "shots": 1,
+        "shifts": 21,
+        "shorthandedGoals": 0,
+        "shorthandedPoints": 0,
+        "opponentAbbrev": "NYR",
+        "pim": 0,
+        "toi": "20:42"
+    },
+    {
+        "gameId": 2024021050,
+        "teamAbbrev": "EDM",
+        "homeRoadFlag": "R",
+        "gameDate": "2025-03-14",
+        "goals": 0,
+        "assists": 1,
+        "commonName": {
+            "default": "Oilers"
+        },
+        "opponentCommonName": {
+            "default": "Islanders"
+        },
+        "points": 1,
+        "plusMinus": 1,
+        "powerPlayGoals": 0,
+        "powerPlayPoints": 0,
+        "gameWinningGoals": 0,
+        "otGoals": 0,
+        "shots": 1,
+        "shifts": 26,
+        "shorthandedGoals": 0,
+        "shorthandedPoints": 0,
+        "opponentAbbrev": "NYI",
+        "pim": 2,
+        "toi": "24:59"
+    },
+    {
+        "gameId": 2024021042,
+        "teamAbbrev": "EDM",
+        "homeRoadFlag": "R",
+        "gameDate": "2025-03-13",
+        "goals": 0,
+        "assists": 2,
+        "commonName": {
+            "default": "Oilers"
+        },
+        "opponentCommonName": {
+            "default": "Devils"
+        },
+        "points": 2,
+        "plusMinus": 2,
+        "powerPlayGoals": 0,
+        "powerPlayPoints": 0,
+        "gameWinningGoals": 0,
+        "otGoals": 0,
+        "shots": 2,
+        "shifts": 23,
+        "shorthandedGoals": 0,
+        "shorthandedPoints": 0,
+        "opponentAbbrev": "NJD",
+        "pim": 0,
+        "toi": "25:06"
+    },
+    {
+        "gameId": 2024021021,
+        "teamAbbrev": "EDM",
+        "homeRoadFlag": "R",
+        "gameDate": "2025-03-10",
+        "goals": 0,
+        "assists": 1,
+        "commonName": {
+            "default": "Oilers"
+        },
+        "opponentCommonName": {
+            "default": "Sabres"
+        },
+        "points": 1,
+        "plusMinus": -1,
+        "powerPlayGoals": 0,
+        "powerPlayPoints": 1,
+        "gameWinningGoals": 0,
+        "otGoals": 0,
+        "shots": 2,
+        "shifts": 21,
+        "shorthandedGoals": 0,
+        "shorthandedPoints": 0,
+        "opponentAbbrev": "BUF",
+        "pim": 0,
+        "toi": "26:01"
+    },
+    {
+        "gameId": 2024021011,
+        "teamAbbrev": "EDM",
+        "homeRoadFlag": "H",
+        "gameDate": "2025-03-08",
+        "goals": 1,
+        "assists": 1,
+        "commonName": {
+            "default": "Oilers"
+        },
+        "opponentCommonName": {
+            "default": "Stars"
+        },
+        "points": 2,
+        "plusMinus": 2,
+        "powerPlayGoals": 0,
+        "powerPlayPoints": 0,
+        "gameWinningGoals": 0,
+        "otGoals": 0,
+        "shots": 4,
+        "shifts": 23,
+        "shorthandedGoals": 0,
+        "shorthandedPoints": 0,
+        "opponentAbbrev": "DAL",
+        "pim": 0,
+        "toi": "20:57"
+    },
+    {
+        "gameId": 2024020995,
+        "teamAbbrev": "EDM",
+        "homeRoadFlag": "H",
+        "gameDate": "2025-03-06",
+        "goals": 0,
+        "assists": 2,
+        "commonName": {
+            "default": "Oilers"
+        },
+        "opponentCommonName": {
+            "default": "Canadiens"
+        },
+        "points": 2,
+        "plusMinus": 0,
+        "powerPlayGoals": 0,
+        "powerPlayPoints": 0,
+        "gameWinningGoals": 0,
+        "otGoals": 0,
+        "shots": 3,
+        "shifts": 25,
+        "shorthandedGoals": 0,
+        "shorthandedPoints": 0,
+        "opponentAbbrev": "MTL",
+        "pim": 0,
+        "toi": "26:58"
+    },
+    {
+        "gameId": 2024020981,
+        "teamAbbrev": "EDM",
+        "homeRoadFlag": "H",
+        "gameDate": "2025-03-04",
+        "goals": 1,
+        "assists": 1,
+        "commonName": {
+            "default": "Oilers"
+        },
+        "opponentCommonName": {
+            "default": "Ducks"
+        },
+        "points": 2,
+        "plusMinus": -2,
+        "powerPlayGoals": 1,
+        "powerPlayPoints": 2,
+        "gameWinningGoals": 0,
+        "otGoals": 0,
+        "shots": 5,
+        "shifts": 21,
+        "shorthandedGoals": 0,
+        "shorthandedPoints": 0,
+        "opponentAbbrev": "ANA",
+        "pim": 0,
+        "toi": "21:59"
+    },
+    {
+        "gameId": 2024020955,
+        "teamAbbrev": "EDM",
+        "homeRoadFlag": "R",
+        "gameDate": "2025-03-01",
+        "goals": 0,
+        "assists": 1,
+        "commonName": {
+            "default": "Oilers"
+        },
+        "opponentCommonName": {
+            "default": "Hurricanes"
+        },
+        "points": 1,
+        "plusMinus": 0,
+        "powerPlayGoals": 0,
+        "powerPlayPoints": 1,
+        "gameWinningGoals": 0,
+        "otGoals": 0,
+        "shots": 4,
+        "shifts": 23,
+        "shorthandedGoals": 0,
+        "shorthandedPoints": 0,
+        "opponentAbbrev": "CAR",
+        "pim": 0,
+        "toi": "24:42"
+    },
+    {
+        "gameId": 2024020937,
+        "teamAbbrev": "EDM",
+        "homeRoadFlag": "R",
+        "gameDate": "2025-02-27",
+        "goals": 0,
+        "assists": 1,
+        "commonName": {
+            "default": "Oilers"
+        },
+        "opponentCommonName": {
+            "default": "Panthers"
+        },
+        "points": 1,
+        "plusMinus": 0,
+        "powerPlayGoals": 0,
+        "powerPlayPoints": 0,
+        "gameWinningGoals": 0,
+        "otGoals": 0,
+        "shots": 2,
+        "shifts": 23,
+        "shorthandedGoals": 0,
+        "shorthandedPoints": 0,
+        "opponentAbbrev": "FLA",
+        "pim": 0,
+        "toi": "22:46"
+    },
+    {
+        "gameId": 2024020921,
+        "teamAbbrev": "EDM",
+        "homeRoadFlag": "R",
+        "gameDate": "2025-02-25",
+        "goals": 0,
+        "assists": 1,
+        "commonName": {
+            "default": "Oilers"
+        },
+        "opponentCommonName": {
+            "default": "Lightning"
+        },
+        "points": 1,
+        "plusMinus": -1,
+        "powerPlayGoals": 0,
+        "powerPlayPoints": 1,
+        "gameWinningGoals": 0,
+        "otGoals": 0,
+        "shots": 2,
+        "shifts": 22,
+        "shorthandedGoals": 0,
+        "shorthandedPoints": 0,
+        "opponentAbbrev": "TBL",
+        "pim": 0,
+        "toi": "20:30"
+    },
+    {
+        "gameId": 2024020906,
+        "teamAbbrev": "EDM",
+        "homeRoadFlag": "R",
+        "gameDate": "2025-02-23",
+        "goals": 0,
+        "assists": 1,
+        "commonName": {
+            "default": "Oilers"
+        },
+        "opponentCommonName": {
+            "default": "Capitals"
+        },
+        "points": 1,
+        "plusMinus": -3,
+        "powerPlayGoals": 0,
+        "powerPlayPoints": 1,
+        "gameWinningGoals": 0,
+        "otGoals": 0,
+        "shots": 0,
+        "shifts": 21,
+        "shorthandedGoals": 0,
+        "shorthandedPoints": 0,
+        "opponentAbbrev": "WSH",
+        "pim": 0,
+        "toi": "20:17"
+    },
+    {
+        "gameId": 2024020892,
+        "teamAbbrev": "EDM",
+        "homeRoadFlag": "R",
+        "gameDate": "2025-02-22",
+        "goals": 0,
+        "assists": 0,
+        "commonName": {
+            "default": "Oilers"
+        },
+        "opponentCommonName": {
+            "default": "Flyers"
+        },
+        "points": 0,
+        "plusMinus": -3,
+        "powerPlayGoals": 0,
+        "powerPlayPoints": 0,
+        "gameWinningGoals": 0,
+        "otGoals": 0,
+        "shots": 2,
+        "shifts": 20,
+        "shorthandedGoals": 0,
+        "shorthandedPoints": 0,
+        "opponentAbbrev": "PHI",
+        "pim": 0,
+        "toi": "19:59"
+    },
+    {
+        "gameId": 2024020874,
+        "teamAbbrev": "EDM",
+        "homeRoadFlag": "H",
+        "gameDate": "2025-02-07",
+        "goals": 0,
+        "assists": 0,
+        "commonName": {
+            "default": "Oilers"
+        },
+        "opponentCommonName": {
+            "default": "Avalanche"
+        },
+        "points": 0,
+        "plusMinus": -3,
+        "powerPlayGoals": 0,
+        "powerPlayPoints": 0,
+        "gameWinningGoals": 0,
+        "otGoals": 0,
+        "shots": 5,
+        "shifts": 23,
+        "shorthandedGoals": 0,
+        "shorthandedPoints": 0,
+        "opponentAbbrev": "COL",
+        "pim": 0,
+        "toi": "24:04"
+    },
+    {
+        "gameId": 2024020860,
+        "teamAbbrev": "EDM",
+        "homeRoadFlag": "R",
+        "gameDate": "2025-02-05",
+        "goals": 0,
+        "assists": 1,
+        "commonName": {
+            "default": "Oilers"
+        },
+        "opponentCommonName": {
+            "default": "Blackhawks"
+        },
+        "points": 1,
+        "plusMinus": -2,
+        "powerPlayGoals": 0,
+        "powerPlayPoints": 1,
+        "gameWinningGoals": 0,
+        "otGoals": 0,
+        "shots": 2,
+        "shifts": 20,
+        "shorthandedGoals": 0,
+        "shorthandedPoints": 0,
+        "opponentAbbrev": "CHI",
+        "pim": 0,
+        "toi": "21:46"
+    },
+    {
+        "gameId": 2024020851,
+        "teamAbbrev": "EDM",
+        "homeRoadFlag": "R",
+        "gameDate": "2025-02-04",
+        "goals": 1,
+        "assists": 2,
+        "commonName": {
+            "default": "Oilers"
+        },
+        "opponentCommonName": {
+            "default": "Blues"
+        },
+        "points": 3,
+        "plusMinus": 1,
+        "powerPlayGoals": 1,
+        "powerPlayPoints": 1,
+        "gameWinningGoals": 0,
+        "otGoals": 0,
+        "shots": 1,
+        "shifts": 25,
+        "shorthandedGoals": 0,
+        "shorthandedPoints": 0,
+        "opponentAbbrev": "STL",
+        "pim": 0,
+        "toi": "24:43"
+    },
+    {
+        "gameId": 2024020833,
+        "teamAbbrev": "EDM",
+        "homeRoadFlag": "H",
+        "gameDate": "2025-02-01",
+        "goals": 0,
+        "assists": 0,
+        "commonName": {
+            "default": "Oilers"
+        },
+        "opponentCommonName": {
+            "default": "Maple Leafs"
+        },
+        "points": 0,
+        "plusMinus": 0,
+        "powerPlayGoals": 0,
+        "powerPlayPoints": 0,
+        "gameWinningGoals": 0,
+        "otGoals": 0,
+        "shots": 9,
+        "shifts": 21,
+        "shorthandedGoals": 0,
+        "shorthandedPoints": 0,
+        "opponentAbbrev": "TOR",
+        "pim": 0,
+        "toi": "25:25"
+    },
+    {
+        "gameId": 2024020819,
+        "teamAbbrev": "EDM",
+        "homeRoadFlag": "H",
+        "gameDate": "2025-01-30",
+        "goals": 0,
+        "assists": 1,
+        "commonName": {
+            "default": "Oilers"
+        },
+        "opponentCommonName": {
+            "default": "Red Wings"
+        },
+        "points": 1,
+        "plusMinus": -1,
+        "powerPlayGoals": 0,
+        "powerPlayPoints": 1,
+        "gameWinningGoals": 0,
+        "otGoals": 0,
+        "shots": 5,
+        "shifts": 25,
+        "shorthandedGoals": 0,
+        "shorthandedPoints": 0,
+        "opponentAbbrev": "DET",
+        "pim": 0,
+        "toi": "25:55"
+    },
+    {
+        "gameId": 2024020797,
+        "teamAbbrev": "EDM",
+        "homeRoadFlag": "H",
+        "gameDate": "2025-01-27",
+        "goals": 1,
+        "assists": 0,
+        "commonName": {
+            "default": "Oilers"
+        },
+        "opponentCommonName": {
+            "default": "Kraken"
+        },
+        "points": 1,
+        "plusMinus": 1,
+        "powerPlayGoals": 0,
+        "powerPlayPoints": 0,
+        "gameWinningGoals": 0,
+        "otGoals": 0,
+        "shots": 2,
+        "shifts": 19,
+        "shorthandedGoals": 0,
+        "shorthandedPoints": 0,
+        "opponentAbbrev": "SEA",
+        "pim": 0,
+        "toi": "21:00"
+    },
+    {
+        "gameId": 2024020735,
+        "teamAbbrev": "EDM",
+        "homeRoadFlag": "R",
+        "gameDate": "2025-01-18",
+        "goals": 0,
+        "assists": 1,
+        "commonName": {
+            "default": "Oilers"
+        },
+        "opponentCommonName": {
+            "default": "Canucks"
+        },
+        "points": 1,
+        "plusMinus": 1,
+        "powerPlayGoals": 0,
+        "powerPlayPoints": 1,
+        "gameWinningGoals": 0,
+        "otGoals": 0,
+        "shots": 2,
+        "shifts": 23,
+        "shorthandedGoals": 0,
+        "shorthandedPoints": 0,
+        "opponentAbbrev": "VAN",
+        "pim": 15,
+        "toi": "24:30"
+    },
+    {
+        "gameId": 2024020718,
+        "teamAbbrev": "EDM",
+        "homeRoadFlag": "R",
+        "gameDate": "2025-01-16",
+        "goals": 1,
+        "assists": 1,
+        "commonName": {
+            "default": "Oilers"
+        },
+        "opponentCommonName": {
+            "default": "Avalanche"
+        },
+        "points": 2,
+        "plusMinus": 1,
+        "powerPlayGoals": 0,
+        "powerPlayPoints": 0,
+        "gameWinningGoals": 0,
+        "otGoals": 0,
+        "shots": 2,
+        "shifts": 21,
+        "shorthandedGoals": 0,
+        "shorthandedPoints": 0,
+        "opponentAbbrev": "COL",
+        "pim": 0,
+        "toi": "24:17"
+    },
+    {
+        "gameId": 2024020706,
+        "teamAbbrev": "EDM",
+        "homeRoadFlag": "R",
+        "gameDate": "2025-01-15",
+        "goals": 2,
+        "assists": 1,
+        "commonName": {
+            "default": "Oilers"
+        },
+        "opponentCommonName": {
+            "default": "Wild"
+        },
+        "points": 3,
+        "plusMinus": 1,
+        "powerPlayGoals": 1,
+        "powerPlayPoints": 1,
+        "gameWinningGoals": 0,
+        "otGoals": 0,
+        "shots": 3,
+        "shifts": 22,
+        "shorthandedGoals": 0,
+        "shorthandedPoints": 0,
+        "opponentAbbrev": "MIN",
+        "pim": 0,
+        "toi": "21:38"
+    },
+    {
+        "gameId": 2024020691,
+        "teamAbbrev": "EDM",
+        "homeRoadFlag": "H",
+        "gameDate": "2025-01-13",
+        "goals": 1,
+        "assists": 0,
+        "commonName": {
+            "default": "Oilers"
+        },
+        "opponentCommonName": {
+            "default": "Kings"
+        },
+        "points": 1,
+        "plusMinus": 1,
+        "powerPlayGoals": 0,
+        "powerPlayPoints": 0,
+        "gameWinningGoals": 1,
+        "otGoals": 0,
+        "shots": 5,
+        "shifts": 25,
+        "shorthandedGoals": 0,
+        "shorthandedPoints": 0,
+        "opponentAbbrev": "LAK",
+        "pim": 0,
+        "toi": "24:18"
+    },
+    {
+        "gameId": 2024020676,
+        "teamAbbrev": "EDM",
+        "homeRoadFlag": "R",
+        "gameDate": "2025-01-11",
+        "goals": 0,
+        "assists": 0,
+        "commonName": {
+            "default": "Oilers"
+        },
+        "opponentCommonName": {
+            "default": "Blackhawks"
+        },
+        "points": 0,
+        "plusMinus": -2,
+        "powerPlayGoals": 0,
+        "powerPlayPoints": 0,
+        "gameWinningGoals": 0,
+        "otGoals": 0,
+        "shots": 1,
+        "shifts": 22,
+        "shorthandedGoals": 0,
+        "shorthandedPoints": 0,
+        "opponentAbbrev": "CHI",
+        "pim": 0,
+        "toi": "21:50"
+    },
+    {
+        "gameId": 2024020658,
+        "teamAbbrev": "EDM",
+        "homeRoadFlag": "R",
+        "gameDate": "2025-01-09",
+        "goals": 0,
+        "assists": 3,
+        "commonName": {
+            "default": "Oilers"
+        },
+        "opponentCommonName": {
+            "default": "Penguins"
+        },
+        "points": 3,
+        "plusMinus": 0,
+        "powerPlayGoals": 0,
+        "powerPlayPoints": 1,
+        "gameWinningGoals": 0,
+        "otGoals": 0,
+        "shots": 3,
+        "shifts": 23,
+        "shorthandedGoals": 0,
+        "shorthandedPoints": 0,
+        "opponentAbbrev": "PIT",
+        "pim": 0,
+        "toi": "26:55"
+    },
+    {
+        "gameId": 2024020641,
+        "teamAbbrev": "EDM",
+        "homeRoadFlag": "R",
+        "gameDate": "2025-01-07",
+        "goals": 1,
+        "assists": 0,
+        "commonName": {
+            "default": "Oilers"
+        },
+        "opponentCommonName": {
+            "default": "Bruins"
+        },
+        "points": 1,
+        "plusMinus": 0,
+        "powerPlayGoals": 1,
+        "powerPlayPoints": 1,
+        "gameWinningGoals": 0,
+        "otGoals": 0,
+        "shots": 5,
+        "shifts": 18,
+        "shorthandedGoals": 0,
+        "shorthandedPoints": 0,
+        "opponentAbbrev": "BOS",
+        "pim": 0,
+        "toi": "18:04"
+    },
+    {
+        "gameId": 2024020631,
+        "teamAbbrev": "EDM",
+        "homeRoadFlag": "R",
+        "gameDate": "2025-01-04",
+        "goals": 0,
+        "assists": 0,
+        "commonName": {
+            "default": "Oilers"
+        },
+        "opponentCommonName": {
+            "default": "Kraken"
+        },
+        "points": 0,
+        "plusMinus": 1,
+        "powerPlayGoals": 0,
+        "powerPlayPoints": 0,
+        "gameWinningGoals": 0,
+        "otGoals": 0,
+        "shots": 6,
+        "shifts": 23,
+        "shorthandedGoals": 0,
+        "shorthandedPoints": 0,
+        "opponentAbbrev": "SEA",
+        "pim": 2,
+        "toi": "22:10"
+    },
+    {
+        "gameId": 2024020618,
+        "teamAbbrev": "EDM",
+        "homeRoadFlag": "H",
+        "gameDate": "2025-01-03",
+        "goals": 0,
+        "assists": 0,
+        "commonName": {
+            "default": "Oilers"
+        },
+        "opponentCommonName": {
+            "default": "Ducks"
+        },
+        "points": 0,
+        "plusMinus": 0,
+        "powerPlayGoals": 0,
+        "powerPlayPoints": 0,
+        "gameWinningGoals": 0,
+        "otGoals": 0,
+        "shots": 0,
+        "shifts": 21,
+        "shorthandedGoals": 0,
+        "shorthandedPoints": 0,
+        "opponentAbbrev": "ANA",
+        "pim": 2,
+        "toi": "22:44"
+    },
+    {
+        "gameId": 2024020601,
+        "teamAbbrev": "EDM",
+        "homeRoadFlag": "H",
+        "gameDate": "2024-12-31",
+        "goals": 0,
+        "assists": 2,
+        "commonName": {
+            "default": "Oilers"
+        },
+        "opponentCommonName": {
+            "default": "Utah Hockey Club",
+            "fr": "Club de hockey de l'Utah"
+        },
+        "points": 2,
+        "plusMinus": 2,
+        "powerPlayGoals": 0,
+        "powerPlayPoints": 0,
+        "gameWinningGoals": 0,
+        "otGoals": 0,
+        "shots": 2,
+        "shifts": 16,
+        "shorthandedGoals": 0,
+        "shorthandedPoints": 0,
+        "opponentAbbrev": "UTA",
+        "pim": 0,
+        "toi": "21:11"
+    },
+    {
+        "gameId": 2024020578,
+        "teamAbbrev": "EDM",
+        "homeRoadFlag": "R",
+        "gameDate": "2024-12-29",
+        "goals": 0,
+        "assists": 2,
+        "commonName": {
+            "default": "Oilers"
+        },
+        "opponentCommonName": {
+            "default": "Ducks"
+        },
+        "points": 2,
+        "plusMinus": -3,
+        "powerPlayGoals": 0,
+        "powerPlayPoints": 2,
+        "gameWinningGoals": 0,
+        "otGoals": 0,
+        "shots": 2,
+        "shifts": 18,
+        "shorthandedGoals": 0,
+        "shorthandedPoints": 0,
+        "opponentAbbrev": "ANA",
+        "pim": 0,
+        "toi": "21:20"
+    },
+    {
+        "gameId": 2024020569,
+        "teamAbbrev": "EDM",
+        "homeRoadFlag": "R",
+        "gameDate": "2024-12-28",
+        "goals": 0,
+        "assists": 1,
+        "commonName": {
+            "default": "Oilers"
+        },
+        "opponentCommonName": {
+            "default": "Kings"
+        },
+        "points": 1,
+        "plusMinus": 0,
+        "powerPlayGoals": 0,
+        "powerPlayPoints": 1,
+        "gameWinningGoals": 0,
+        "otGoals": 0,
+        "shots": 0,
+        "shifts": 20,
+        "shorthandedGoals": 0,
+        "shorthandedPoints": 0,
+        "opponentAbbrev": "LAK",
+        "pim": 0,
+        "toi": "23:27"
+    },
+    {
+        "gameId": 2024020544,
+        "teamAbbrev": "EDM",
+        "homeRoadFlag": "H",
+        "gameDate": "2024-12-22",
+        "goals": 0,
+        "assists": 1,
+        "commonName": {
+            "default": "Oilers"
+        },
+        "opponentCommonName": {
+            "default": "Senators",
+            "fr": "Sénateurs"
+        },
+        "points": 1,
+        "plusMinus": 0,
+        "powerPlayGoals": 0,
+        "powerPlayPoints": 0,
+        "gameWinningGoals": 0,
+        "otGoals": 0,
+        "shots": 2,
+        "shifts": 21,
+        "shorthandedGoals": 0,
+        "shorthandedPoints": 0,
+        "opponentAbbrev": "OTT",
+        "pim": 0,
+        "toi": "22:39"
+    },
+    {
+        "gameId": 2024020530,
+        "teamAbbrev": "EDM",
+        "homeRoadFlag": "H",
+        "gameDate": "2024-12-21",
+        "goals": 0,
+        "assists": 3,
+        "commonName": {
+            "default": "Oilers"
+        },
+        "opponentCommonName": {
+            "default": "Sharks"
+        },
+        "points": 3,
+        "plusMinus": 3,
+        "powerPlayGoals": 0,
+        "powerPlayPoints": 0,
+        "gameWinningGoals": 0,
+        "otGoals": 0,
+        "shots": 2,
+        "shifts": 22,
+        "shorthandedGoals": 0,
+        "shorthandedPoints": 0,
+        "opponentAbbrev": "SJS",
+        "pim": 0,
+        "toi": "25:19"
+    },
+    {
+        "gameId": 2024020518,
+        "teamAbbrev": "EDM",
+        "homeRoadFlag": "H",
+        "gameDate": "2024-12-19",
+        "goals": 1,
+        "assists": 0,
+        "commonName": {
+            "default": "Oilers"
+        },
+        "opponentCommonName": {
+            "default": "Bruins"
+        },
+        "points": 1,
+        "plusMinus": 2,
+        "powerPlayGoals": 0,
+        "powerPlayPoints": 0,
+        "gameWinningGoals": 0,
+        "otGoals": 0,
+        "shots": 2,
+        "shifts": 22,
+        "shorthandedGoals": 0,
+        "shorthandedPoints": 0,
+        "opponentAbbrev": "BOS",
+        "pim": 2,
+        "toi": "24:47"
+    },
+    {
+        "gameId": 2024020495,
+        "teamAbbrev": "EDM",
+        "homeRoadFlag": "H",
+        "gameDate": "2024-12-16",
+        "goals": 0,
+        "assists": 3,
+        "commonName": {
+            "default": "Oilers"
+        },
+        "opponentCommonName": {
+            "default": "Panthers"
+        },
+        "points": 3,
+        "plusMinus": -2,
+        "powerPlayGoals": 0,
+        "powerPlayPoints": 1,
+        "gameWinningGoals": 0,
+        "otGoals": 0,
+        "shots": 0,
+        "shifts": 23,
+        "shorthandedGoals": 0,
+        "shorthandedPoints": 0,
+        "opponentAbbrev": "FLA",
+        "pim": 0,
+        "toi": "23:00"
+    },
+    {
+        "gameId": 2024020477,
+        "teamAbbrev": "EDM",
+        "homeRoadFlag": "H",
+        "gameDate": "2024-12-14",
+        "goals": 0,
+        "assists": 1,
+        "commonName": {
+            "default": "Oilers"
+        },
+        "opponentCommonName": {
+            "default": "Golden Knights"
+        },
+        "points": 1,
+        "plusMinus": 0,
+        "powerPlayGoals": 0,
+        "powerPlayPoints": 1,
+        "gameWinningGoals": 0,
+        "otGoals": 0,
+        "shots": 2,
+        "shifts": 22,
+        "shorthandedGoals": 0,
+        "shorthandedPoints": 0,
+        "opponentAbbrev": "VGK",
+        "pim": 0,
+        "toi": "20:24"
+    },
+    {
+        "gameId": 2024020467,
+        "teamAbbrev": "EDM",
+        "homeRoadFlag": "R",
+        "gameDate": "2024-12-12",
+        "goals": 0,
+        "assists": 2,
+        "commonName": {
+            "default": "Oilers"
+        },
+        "opponentCommonName": {
+            "default": "Wild"
+        },
+        "points": 2,
+        "plusMinus": 1,
+        "powerPlayGoals": 0,
+        "powerPlayPoints": 1,
+        "gameWinningGoals": 0,
+        "otGoals": 0,
+        "shots": 2,
+        "shifts": 17,
+        "shorthandedGoals": 0,
+        "shorthandedPoints": 0,
+        "opponentAbbrev": "MIN",
+        "pim": 0,
+        "toi": "19:54"
+    },
+    {
+        "gameId": 2024020453,
+        "teamAbbrev": "EDM",
+        "homeRoadFlag": "H",
+        "gameDate": "2024-12-10",
+        "goals": 1,
+        "assists": 0,
+        "commonName": {
+            "default": "Oilers"
+        },
+        "opponentCommonName": {
+            "default": "Lightning"
+        },
+        "points": 1,
+        "plusMinus": 1,
+        "powerPlayGoals": 0,
+        "powerPlayPoints": 0,
+        "gameWinningGoals": 0,
+        "otGoals": 0,
+        "shots": 4,
+        "shifts": 19,
+        "shorthandedGoals": 0,
+        "shorthandedPoints": 0,
+        "opponentAbbrev": "TBL",
+        "pim": 0,
+        "toi": "22:03"
+    },
+    {
+        "gameId": 2024020435,
+        "teamAbbrev": "EDM",
+        "homeRoadFlag": "H",
+        "gameDate": "2024-12-07",
+        "goals": 1,
+        "assists": 1,
+        "commonName": {
+            "default": "Oilers"
+        },
+        "opponentCommonName": {
+            "default": "Blues"
+        },
+        "points": 2,
+        "plusMinus": 0,
+        "powerPlayGoals": 0,
+        "powerPlayPoints": 1,
+        "gameWinningGoals": 0,
+        "otGoals": 0,
+        "shots": 2,
+        "shifts": 21,
+        "shorthandedGoals": 0,
+        "shorthandedPoints": 0,
+        "opponentAbbrev": "STL",
+        "pim": 0,
+        "toi": "21:42"
+    },
+    {
+        "gameId": 2024020418,
+        "teamAbbrev": "EDM",
+        "homeRoadFlag": "H",
+        "gameDate": "2024-12-05",
+        "goals": 0,
+        "assists": 4,
+        "commonName": {
+            "default": "Oilers"
+        },
+        "opponentCommonName": {
+            "default": "Blue Jackets"
+        },
+        "points": 4,
+        "plusMinus": 2,
+        "powerPlayGoals": 0,
+        "powerPlayPoints": 1,
+        "gameWinningGoals": 0,
+        "otGoals": 0,
+        "shots": 1,
+        "shifts": 20,
+        "shorthandedGoals": 0,
+        "shorthandedPoints": 0,
+        "opponentAbbrev": "CBJ",
+        "pim": 0,
+        "toi": "20:36"
+    },
+    {
+        "gameId": 2024020405,
+        "teamAbbrev": "EDM",
+        "homeRoadFlag": "R",
+        "gameDate": "2024-12-03",
+        "goals": 0,
+        "assists": 0,
+        "commonName": {
+            "default": "Oilers"
+        },
+        "opponentCommonName": {
+            "default": "Golden Knights"
+        },
+        "points": 0,
+        "plusMinus": 0,
+        "powerPlayGoals": 0,
+        "powerPlayPoints": 0,
+        "gameWinningGoals": 0,
+        "otGoals": 0,
+        "shots": 4,
+        "shifts": 22,
+        "shorthandedGoals": 0,
+        "shorthandedPoints": 0,
+        "opponentAbbrev": "VGK",
+        "pim": 0,
+        "toi": "24:58"
+    },
+    {
+        "gameId": 2024020385,
+        "teamAbbrev": "EDM",
+        "homeRoadFlag": "R",
+        "gameDate": "2024-11-30",
+        "goals": 0,
+        "assists": 1,
+        "commonName": {
+            "default": "Oilers"
+        },
+        "opponentCommonName": {
+            "default": "Avalanche"
+        },
+        "points": 1,
+        "plusMinus": 1,
+        "powerPlayGoals": 0,
+        "powerPlayPoints": 0,
+        "gameWinningGoals": 0,
+        "otGoals": 0,
+        "shots": 4,
+        "shifts": 21,
+        "shorthandedGoals": 0,
+        "shorthandedPoints": 0,
+        "opponentAbbrev": "COL",
+        "pim": 2,
+        "toi": "20:21"
+    },
+    {
+        "gameId": 2024020375,
+        "teamAbbrev": "EDM",
+        "homeRoadFlag": "R",
+        "gameDate": "2024-11-29",
+        "goals": 1,
+        "assists": 1,
+        "commonName": {
+            "default": "Oilers"
+        },
+        "opponentCommonName": {
+            "default": "Utah Hockey Club",
+            "fr": "Club de hockey de l'Utah"
+        },
+        "points": 2,
+        "plusMinus": -3,
+        "powerPlayGoals": 1,
+        "powerPlayPoints": 2,
+        "gameWinningGoals": 0,
+        "otGoals": 0,
+        "shots": 6,
+        "shifts": 22,
+        "shorthandedGoals": 0,
+        "shorthandedPoints": 0,
+        "opponentAbbrev": "UTA",
+        "pim": 0,
+        "toi": "23:46"
+    },
+    {
+        "gameId": 2024020332,
+        "teamAbbrev": "EDM",
+        "homeRoadFlag": "H",
+        "gameDate": "2024-11-23",
+        "goals": 2,
+        "assists": 1,
+        "commonName": {
+            "default": "Oilers"
+        },
+        "opponentCommonName": {
+            "default": "Rangers"
+        },
+        "points": 3,
+        "plusMinus": 3,
+        "powerPlayGoals": 0,
+        "powerPlayPoints": 0,
+        "gameWinningGoals": 0,
+        "otGoals": 0,
+        "shots": 3,
+        "shifts": 21,
+        "shorthandedGoals": 0,
+        "shorthandedPoints": 0,
+        "opponentAbbrev": "NYR",
+        "pim": 0,
+        "toi": "20:04"
+    },
+    {
+        "gameId": 2024020315,
+        "teamAbbrev": "EDM",
+        "homeRoadFlag": "H",
+        "gameDate": "2024-11-21",
+        "goals": 0,
+        "assists": 1,
+        "commonName": {
+            "default": "Oilers"
+        },
+        "opponentCommonName": {
+            "default": "Wild"
+        },
+        "points": 1,
+        "plusMinus": 0,
+        "powerPlayGoals": 0,
+        "powerPlayPoints": 0,
+        "gameWinningGoals": 0,
+        "otGoals": 0,
+        "shots": 4,
+        "shifts": 24,
+        "shorthandedGoals": 0,
+        "shorthandedPoints": 0,
+        "opponentAbbrev": "MIN",
+        "pim": 0,
+        "toi": "24:40"
+    },
+    {
+        "gameId": 2024020294,
+        "teamAbbrev": "EDM",
+        "homeRoadFlag": "R",
+        "gameDate": "2024-11-19",
+        "goals": 2,
+        "assists": 1,
+        "commonName": {
+            "default": "Oilers"
+        },
+        "opponentCommonName": {
+            "default": "Senators",
+            "fr": "Sénateurs"
+        },
+        "points": 3,
+        "plusMinus": 3,
+        "powerPlayGoals": 1,
+        "powerPlayPoints": 1,
+        "gameWinningGoals": 1,
+        "otGoals": 0,
+        "shots": 5,
+        "shifts": 22,
+        "shorthandedGoals": 0,
+        "shorthandedPoints": 0,
+        "opponentAbbrev": "OTT",
+        "pim": 0,
+        "toi": "22:08"
+    },
+    {
+        "gameId": 2024020290,
+        "teamAbbrev": "EDM",
+        "homeRoadFlag": "R",
+        "gameDate": "2024-11-18",
+        "goals": 0,
+        "assists": 0,
+        "commonName": {
+            "default": "Oilers"
+        },
+        "opponentCommonName": {
+            "default": "Canadiens"
+        },
+        "points": 0,
+        "plusMinus": -2,
+        "powerPlayGoals": 0,
+        "powerPlayPoints": 0,
+        "gameWinningGoals": 0,
+        "otGoals": 0,
+        "shots": 1,
+        "shifts": 18,
+        "shorthandedGoals": 0,
+        "shorthandedPoints": 0,
+        "opponentAbbrev": "MTL",
+        "pim": 0,
+        "toi": "22:42"
+    },
+    {
+        "gameId": 2024020274,
+        "teamAbbrev": "EDM",
+        "homeRoadFlag": "R",
+        "gameDate": "2024-11-16",
+        "goals": 1,
+        "assists": 1,
+        "commonName": {
+            "default": "Oilers"
+        },
+        "opponentCommonName": {
+            "default": "Maple Leafs"
+        },
+        "points": 2,
+        "plusMinus": -3,
+        "powerPlayGoals": 1,
+        "powerPlayPoints": 1,
+        "gameWinningGoals": 0,
+        "otGoals": 0,
+        "shots": 4,
+        "shifts": 25,
+        "shorthandedGoals": 0,
+        "shorthandedPoints": 0,
+        "opponentAbbrev": "TOR",
+        "pim": 2,
+        "toi": "24:46"
+    },
+    {
+        "gameId": 2024020264,
+        "teamAbbrev": "EDM",
+        "homeRoadFlag": "H",
+        "gameDate": "2024-11-14",
+        "goals": 1,
+        "assists": 1,
+        "commonName": {
+            "default": "Oilers"
+        },
+        "opponentCommonName": {
+            "default": "Predators"
+        },
+        "points": 2,
+        "plusMinus": 1,
+        "powerPlayGoals": 0,
+        "powerPlayPoints": 0,
+        "gameWinningGoals": 0,
+        "otGoals": 0,
+        "shots": 8,
+        "shifts": 25,
+        "shorthandedGoals": 0,
+        "shorthandedPoints": 0,
+        "opponentAbbrev": "NSH",
+        "pim": 0,
+        "toi": "24:57"
+    },
+    {
+        "gameId": 2024020249,
+        "teamAbbrev": "EDM",
+        "homeRoadFlag": "H",
+        "gameDate": "2024-11-12",
+        "goals": 1,
+        "assists": 3,
+        "commonName": {
+            "default": "Oilers"
+        },
+        "opponentCommonName": {
+            "default": "Islanders"
+        },
+        "points": 4,
+        "plusMinus": 1,
+        "powerPlayGoals": 0,
+        "powerPlayPoints": 1,
+        "gameWinningGoals": 0,
+        "otGoals": 0,
+        "shots": 8,
+        "shifts": 25,
+        "shorthandedGoals": 0,
+        "shorthandedPoints": 0,
+        "opponentAbbrev": "NYI",
+        "pim": 0,
+        "toi": "20:55"
+    },
+    {
+        "gameId": 2024020235,
+        "teamAbbrev": "EDM",
+        "homeRoadFlag": "R",
+        "gameDate": "2024-11-09",
+        "goals": 1,
+        "assists": 2,
+        "commonName": {
+            "default": "Oilers"
+        },
+        "opponentCommonName": {
+            "default": "Canucks"
+        },
+        "points": 3,
+        "plusMinus": 1,
+        "powerPlayGoals": 1,
+        "powerPlayPoints": 1,
+        "gameWinningGoals": 0,
+        "otGoals": 0,
+        "shots": 4,
+        "shifts": 20,
+        "shorthandedGoals": 0,
+        "shorthandedPoints": 0,
+        "opponentAbbrev": "VAN",
+        "pim": 0,
+        "toi": "19:56"
+    },
+    {
+        "gameId": 2024020207,
+        "teamAbbrev": "EDM",
+        "homeRoadFlag": "H",
+        "gameDate": "2024-11-06",
+        "goals": 0,
+        "assists": 0,
+        "commonName": {
+            "default": "Oilers"
+        },
+        "opponentCommonName": {
+            "default": "Golden Knights"
+        },
+        "points": 0,
+        "plusMinus": -1,
+        "powerPlayGoals": 0,
+        "powerPlayPoints": 0,
+        "gameWinningGoals": 0,
+        "otGoals": 0,
+        "shots": 2,
+        "shifts": 23,
+        "shorthandedGoals": 0,
+        "shorthandedPoints": 0,
+        "opponentAbbrev": "VGK",
+        "pim": 0,
+        "toi": "21:02"
+    },
+    {
+        "gameId": 2024020142,
+        "teamAbbrev": "EDM",
+        "homeRoadFlag": "R",
+        "gameDate": "2024-10-28",
+        "goals": 0,
+        "assists": 0,
+        "commonName": {
+            "default": "Oilers"
+        },
+        "opponentCommonName": {
+            "default": "Blue Jackets"
+        },
+        "points": 0,
+        "plusMinus": 0,
+        "powerPlayGoals": 0,
+        "powerPlayPoints": 0,
+        "gameWinningGoals": 0,
+        "otGoals": 0,
+        "shots": 0,
+        "shifts": 1,
+        "shorthandedGoals": 0,
+        "shorthandedPoints": 0,
+        "opponentAbbrev": "CBJ",
+        "pim": 0,
+        "toi": "0:37"
+    },
+    {
+        "gameId": 2024020136,
+        "teamAbbrev": "EDM",
+        "homeRoadFlag": "R",
+        "gameDate": "2024-10-27",
+        "goals": 0,
+        "assists": 2,
+        "commonName": {
+            "default": "Oilers"
+        },
+        "opponentCommonName": {
+            "default": "Red Wings"
+        },
+        "points": 2,
+        "plusMinus": 3,
+        "powerPlayGoals": 0,
+        "powerPlayPoints": 0,
+        "gameWinningGoals": 0,
+        "otGoals": 0,
+        "shots": 4,
+        "shifts": 23,
+        "shorthandedGoals": 0,
+        "shorthandedPoints": 0,
+        "opponentAbbrev": "DET",
+        "pim": 0,
+        "toi": "22:49"
+    },
+    {
+        "gameId": 2024020121,
+        "teamAbbrev": "EDM",
+        "homeRoadFlag": "H",
+        "gameDate": "2024-10-25",
+        "goals": 0,
+        "assists": 0,
+        "commonName": {
+            "default": "Oilers"
+        },
+        "opponentCommonName": {
+            "default": "Penguins"
+        },
+        "points": 0,
+        "plusMinus": 2,
+        "powerPlayGoals": 0,
+        "powerPlayPoints": 0,
+        "gameWinningGoals": 0,
+        "otGoals": 0,
+        "shots": 5,
+        "shifts": 20,
+        "shorthandedGoals": 0,
+        "shorthandedPoints": 0,
+        "opponentAbbrev": "PIT",
+        "pim": 2,
+        "toi": "20:07"
+    },
+    {
+        "gameId": 2024020103,
+        "teamAbbrev": "EDM",
+        "homeRoadFlag": "H",
+        "gameDate": "2024-10-22",
+        "goals": 2,
+        "assists": 0,
+        "commonName": {
+            "default": "Oilers"
+        },
+        "opponentCommonName": {
+            "default": "Hurricanes"
+        },
+        "points": 2,
+        "plusMinus": 0,
+        "powerPlayGoals": 1,
+        "powerPlayPoints": 1,
+        "gameWinningGoals": 0,
+        "otGoals": 0,
+        "shots": 5,
+        "shifts": 23,
+        "shorthandedGoals": 0,
+        "shorthandedPoints": 0,
+        "opponentAbbrev": "CAR",
+        "pim": 0,
+        "toi": "25:37"
+    },
+    {
+        "gameId": 2024020077,
+        "teamAbbrev": "EDM",
+        "homeRoadFlag": "R",
+        "gameDate": "2024-10-19",
+        "goals": 0,
+        "assists": 1,
+        "commonName": {
+            "default": "Oilers"
+        },
+        "opponentCommonName": {
+            "default": "Stars"
+        },
+        "points": 1,
+        "plusMinus": 0,
+        "powerPlayGoals": 0,
+        "powerPlayPoints": 0,
+        "gameWinningGoals": 0,
+        "otGoals": 0,
+        "shots": 3,
+        "shifts": 20,
+        "shorthandedGoals": 0,
+        "shorthandedPoints": 0,
+        "opponentAbbrev": "DAL",
+        "pim": 0,
+        "toi": "22:35"
+    },
+    {
+        "gameId": 2024020069,
+        "teamAbbrev": "EDM",
+        "homeRoadFlag": "R",
+        "gameDate": "2024-10-17",
+        "goals": 1,
+        "assists": 0,
+        "commonName": {
+            "default": "Oilers"
+        },
+        "opponentCommonName": {
+            "default": "Predators"
+        },
+        "points": 1,
+        "plusMinus": 2,
+        "powerPlayGoals": 0,
+        "powerPlayPoints": 0,
+        "gameWinningGoals": 1,
+        "otGoals": 0,
+        "shots": 4,
+        "shifts": 20,
+        "shorthandedGoals": 0,
+        "shorthandedPoints": 0,
+        "opponentAbbrev": "NSH",
+        "pim": 0,
+        "toi": "21:11"
+    },
+    {
+        "gameId": 2024020056,
+        "teamAbbrev": "EDM",
+        "homeRoadFlag": "H",
+        "gameDate": "2024-10-15",
+        "goals": 0,
+        "assists": 2,
+        "commonName": {
+            "default": "Oilers"
+        },
+        "opponentCommonName": {
+            "default": "Flyers"
+        },
+        "points": 2,
+        "plusMinus": 2,
+        "powerPlayGoals": 0,
+        "powerPlayPoints": 0,
+        "gameWinningGoals": 0,
+        "otGoals": 0,
+        "shots": 1,
+        "shifts": 23,
+        "shorthandedGoals": 0,
+        "shorthandedPoints": 0,
+        "opponentAbbrev": "PHI",
+        "pim": 0,
+        "toi": "24:06"
+    },
+    {
+        "gameId": 2024020040,
+        "teamAbbrev": "EDM",
+        "homeRoadFlag": "H",
+        "gameDate": "2024-10-13",
+        "goals": 0,
+        "assists": 1,
+        "commonName": {
+            "default": "Oilers"
+        },
+        "opponentCommonName": {
+            "default": "Flames"
+        },
+        "points": 1,
+        "plusMinus": -2,
+        "powerPlayGoals": 0,
+        "powerPlayPoints": 0,
+        "gameWinningGoals": 0,
+        "otGoals": 0,
+        "shots": 5,
+        "shifts": 21,
+        "shorthandedGoals": 0,
+        "shorthandedPoints": 0,
+        "opponentAbbrev": "CGY",
+        "pim": 0,
+        "toi": "20:27"
+    },
+    {
+        "gameId": 2024020036,
+        "teamAbbrev": "EDM",
+        "homeRoadFlag": "H",
+        "gameDate": "2024-10-12",
+        "goals": 0,
+        "assists": 1,
+        "commonName": {
+            "default": "Oilers"
+        },
+        "opponentCommonName": {
+            "default": "Blackhawks"
+        },
+        "points": 1,
+        "plusMinus": -1,
+        "powerPlayGoals": 0,
+        "powerPlayPoints": 1,
+        "gameWinningGoals": 0,
+        "otGoals": 0,
+        "shots": 3,
+        "shifts": 21,
+        "shorthandedGoals": 0,
+        "shorthandedPoints": 0,
+        "opponentAbbrev": "CHI",
+        "pim": 2,
+        "toi": "23:32"
+    },
+    {
+        "gameId": 2024020008,
+        "teamAbbrev": "EDM",
+        "homeRoadFlag": "H",
+        "gameDate": "2024-10-09",
+        "goals": 0,
+        "assists": 0,
+        "commonName": {
+            "default": "Oilers"
+        },
+        "opponentCommonName": {
+            "default": "Jets"
+        },
+        "points": 0,
+        "plusMinus": -2,
+        "powerPlayGoals": 0,
+        "powerPlayPoints": 0,
+        "gameWinningGoals": 0,
+        "otGoals": 0,
+        "shots": 0,
+        "shifts": 21,
+        "shorthandedGoals": 0,
+        "shorthandedPoints": 0,
+        "opponentAbbrev": "WPG",
+        "pim": 0,
+        "toi": "20:49"
+    }
+]
