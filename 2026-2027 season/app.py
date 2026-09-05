@@ -115,12 +115,12 @@ tab_draft, tab_lab, tab_season = st.tabs(
 
 with tab_draft:
     st.sidebar.header("Draft settings")
-    n_teams = st.sidebar.number_input("Teams in pool", 4, 20, 10)
+    n_teams = st.sidebar.number_input("Teams in pool", 4, 20, 7)
     st.sidebar.caption("Roster slots per team, used for replacement level:")
     slots = {
-        "A": st.sidebar.number_input("A", 0, 12, 6),
-        "D": st.sidebar.number_input("D", 0, 8, 4),
-        "G": st.sidebar.number_input("G", 0, 4, 1),
+        "A": st.sidebar.number_input("A", 0, 12, 12),
+        "D": st.sidebar.number_input("D", 0, 8, 6),
+        "G": st.sidebar.number_input("G", 0, 4, 2),
     }
 
     proj = add_edge(get_projections(TARGET), slots, n_teams)
