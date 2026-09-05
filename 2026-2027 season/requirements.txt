@@ -1,0 +1,10 @@
+pandas>=2.2
+numpy>=2.0
+scipy>=1.13
+pyarrow>=19.0
+scikit-learn>=1.5
+xgboost>=3.0
+nhl-api-py>=2.0
+streamlit>=1.40
+plotly>=6.0
+tqdm>=4.66
