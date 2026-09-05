@@ -23,13 +23,18 @@ import plotly.express as px
 import streamlit as st
 
 from fantasy import data, datasets, evaluate, models
-from fantasy.config import TARGET_SEASON
+from fantasy.config import DEFENCE_POS, FORWARD_POS, GOALIE_POS, TARGET_SEASON
 
 st.set_page_config(page_title="Fantasy Hockey 2026-27", layout="wide")
 
 ROSTER_FILE = Path("roster.json")
 MIN_GAMES = 20
 TARGET = "fp_per82"
+POSITION_GROUPS = {
+    "A": FORWARD_POS,
+    "D": DEFENCE_POS,
+    "G": GOALIE_POS,
+}
 
 
 # ─── Data ──────────────────────────────────────────────────────────────────────
@@ -82,9 +87,13 @@ def add_edge(df: pd.DataFrame, slots: dict[str, int], n_teams: int) -> pd.DataFr
     Known elsewhere as VORP, value over replacement player.
     """
     df = df.copy()
+    df["position_group"] = ""
+    for group, positions in POSITION_GROUPS.items():
+        df.loc[df["positionCode"].isin(positions), "position_group"] = group
+
     df["replacement"] = 0.0
     for pos, n in slots.items():
-        mask = df["positionCode"] == pos
+        mask = df["position_group"] == pos
         pool = df.loc[mask, "projection"].sort_values(ascending=False)
         cutoff = int(n * n_teams)
         level = pool.iloc[cutoff] if len(pool) > cutoff else (pool.min() if len(pool) else 0.0)
@@ -109,9 +118,7 @@ with tab_draft:
     n_teams = st.sidebar.number_input("Teams in pool", 4, 20, 10)
     st.sidebar.caption("Roster slots per team, used for replacement level:")
     slots = {
-        "C": st.sidebar.number_input("C", 0, 6, 2),
-        "L": st.sidebar.number_input("LW", 0, 6, 2),
-        "R": st.sidebar.number_input("RW", 0, 6, 2),
+        "A": st.sidebar.number_input("A", 0, 12, 6),
         "D": st.sidebar.number_input("D", 0, 8, 4),
         "G": st.sidebar.number_input("G", 0, 4, 1),
     }
@@ -133,22 +140,22 @@ with tab_draft:
         search = st.text_input("Search player", "")
     with c2:
         positions = st.multiselect(
-            "Positions", ["C", "L", "R", "D", "G"], default=["C", "L", "R", "D", "G"]
+            "Positions", ["A", "D", "G"], default=["A", "D", "G"]
         )
     with c3:
         rank_by = st.selectbox("Rank by", ["edge", "projection"])
 
-    view = proj[proj.positionCode.isin(positions)]
+    view = proj[proj.position_group.isin(positions)]
     if search:
         view = view[view.playerName.str.contains(search, case=False, na=False)]
     view = view.sort_values(rank_by, ascending=False).copy()
     view["drafted"] = view.playerId.isin(load_roster())
 
     st.dataframe(
-        view[["playerName", "positionCode", "age", "projection", "edge",
+        view[["playerName", "position_group", "age", "projection", "edge",
               "prev1_fp_per82", "drafted"]]
         .rename(columns={
-            "playerName": "Player", "positionCode": "Pos", "age": "Age",
+            "playerName": "Player", "position_group": "Pos", "age": "Age",
             "projection": "Proj", "edge": "Edge",
             "prev1_fp_per82": "Last yr", "drafted": "Mine",
         })
@@ -164,14 +171,15 @@ with tab_draft:
     )
     curve = (
         proj.sort_values("projection", ascending=False)
-        .groupby("positionCode")
+        .groupby("position_group")
         .head(40)
-        .assign(rank=lambda d: d.groupby("positionCode").cumcount() + 1)
+        .assign(rank=lambda d: d.groupby("position_group").cumcount() + 1)
     )
     st.plotly_chart(
-        px.line(curve, x="rank", y="projection", color="positionCode", markers=True,
+        px.line(curve, x="rank", y="projection", color="position_group", markers=True,
                 labels={"rank": "Rank within position",
-                        "projection": "Projected fantasy pts / 82"}),
+                "projection": "Projected fantasy pts / 82",
+                "position_group": "Position"}),
         use_container_width=True,
     )
 
