@@ -20,8 +20,8 @@ from .config import DEFENCE_POS, GOALIE_POS
 RULES = {
     "forward": {"goal": 2.0, "assist": 1.0},
     "defence": {"goal": 3.0, "assist": 2.0},
-    "goalie": {"win": 3.0, "shutout": 0.0, "otl": 0.0},
-    "bonus": {"hat_trick": 3.0},
+    "goalie": {"win": 3.0, "shutout": 4.0, "otl": 0.0},
+    "bonus": {"hat_trick_f": 3.0, "hat_trick_d": 5.0},
 }
 
 
@@ -39,7 +39,8 @@ def score_skater_games(df: pd.DataFrame) -> pd.Series:
     )
 
     pts = goals * goal_val + assists * assist_val
-    pts += (goals >= 3).astype(float) * RULES["bonus"]["hat_trick"]
+    pts += ((goals >= 3) & ~is_d).astype(float) * RULES["bonus"]["hat_trick_f"]
+    pts += ((goals >= 3) & is_d).astype(float) * RULES["bonus"]["hat_trick_d"]
     return pts.astype(float)
 
 
