@@ -205,3 +205,9 @@ cython_debug/
 marimo/_static/
 marimo/_lsp/
 __marimo__/
+
+# Derived model tables. Rebuilt by datasets.draft_table() / inseason_table()
+# in a couple of minutes from data/raw/, which IS committed. The in-season one
+# is 77MB and is rewritten every time a feature changes, so committing it would
+# add a fresh 77MB blob to history on every experiment.
+2026-2027 season/data/processed/*.parquet

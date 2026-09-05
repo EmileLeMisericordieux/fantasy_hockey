@@ -12,6 +12,7 @@ own targets and a ranking model wants group sizes. Neither fits an (X, y) call.
 
 from __future__ import annotations
 
+import numpy as np
 import pandas as pd
 from xgboost import XGBRegressor
 
@@ -69,6 +70,87 @@ def make_gbm(**overrides):
         model = XGBRegressor(**params)
         model.fit(train[feature_cols], train[target])
         return model.predict(test[feature_cols])
+
+    return fit_predict
+
+
+# ─── In-season ─────────────────────────────────────────────────────────────────
+# Same signature, different problem: one row per player-game, predicting
+# `fantasy_remaining` — the points a player has still to score this season.
+# Used for add/drops, so what matters is the order of the players available
+# today, not the size of the number.
+
+
+def make_inseason_baseline(kind: str = "pace", **kw):
+    """
+    The arithmetic anyone would do by hand. Beat these or the model is noise.
+
+      pace          What he has averaged this season, over the games left. The
+                    projection every fantasy site shows, and it trusts twelve
+                    games exactly as much as sixty.
+      prior_season  Last season's per-game rate, over the games left. Ignores
+                    this season entirely — the opposite mistake.
+      blend         Shrink pace toward last season by sample size. Early on it
+                    is mostly last season; by March it is mostly pace. `k` is
+                    the number of games at which the two weigh the same.
+    """
+    def fit_predict(train, test, feature_cols, target):
+        # Calendar games left, not 82 minus his own games played. See
+        # features.add_cumulative -- the naive version quietly rewards the
+        # injury-prone, which is the one thing these baselines must not do.
+        remaining = test["team_games_left"].to_numpy(dtype=float)
+        pace = test["fantasy_per_game_so_far"].fillna(0).to_numpy(dtype=float)
+
+        if kind == "pace":
+            return pace * remaining
+
+        # Rookies have no prior season. Falling back to their pace is the
+        # honest default: it is the only evidence that exists for them.
+        prior = test["prev1_fp_per_game"].to_numpy(dtype=float)
+        prior = np.where(np.isnan(prior), pace, prior)
+
+        if kind == "prior_season":
+            return prior * remaining
+
+        if kind == "blend":
+            k = float(kw.get("k", 20))
+            g = test["games_so_far"].to_numpy(dtype=float)
+            w = g / (g + k)
+            return (w * pace + (1 - w) * prior) * remaining
+
+        raise ValueError(f"unknown in-season baseline: {kind}")
+
+    return fit_predict
+
+
+def make_inseason_gbm(rate: bool = False, sample_every: int = 1, **overrides):
+    """
+    Gradient boosting on the in-season table.
+
+    `rate=True` splits the problem in two: predict fantasy points *per game
+    remaining*, then multiply by the games remaining. The direct model has to
+    spend trees rediscovering that a player with sixty games left scores more
+    than the same player with six, which is arithmetic, not skill. Handing it
+    over lets every tree work on the part that is actually hard.
+
+    `sample_every=n` trains on every nth game row. Consecutive rows for one
+    player barely differ — the rolling windows move by one game — so this
+    cuts the fit several-fold at little cost. Scoring always uses every row.
+    """
+    params = {**DEFAULT_PARAMS, **overrides}
+
+    def fit_predict(train, test, feature_cols, target):
+        if sample_every > 1:
+            train = train.iloc[::sample_every]
+
+        model = XGBRegressor(**params)
+        if not rate:
+            model.fit(train[feature_cols], train[target])
+            return model.predict(test[feature_cols])
+
+        gr_train = train["team_games_left"].clip(lower=1)
+        model.fit(train[feature_cols], train[target] / gr_train)
+        return model.predict(test[feature_cols]) * test["team_games_left"].clip(lower=0)
 
     return fit_predict
 

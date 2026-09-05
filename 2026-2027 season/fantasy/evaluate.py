@@ -151,6 +151,111 @@ def walk_forward(
     return pd.DataFrame(rows)
 
 
+# ─── Walk-forward validation, in-season ────────────────────────────────────────
+
+
+def snapshot(df: pd.DataFrame, date) -> pd.DataFrame:
+    """
+    One row per player: his **next** game on or after `date`.
+
+    Next, not most recent, because of how the two halves line up. Every feature
+    on a row is shifted to exclude that row's own game, and `fantasy_remaining`
+    counts that game onward. So a row is the state of the world on the morning
+    of a game, before it is played — which is exactly when you make a waiver
+    claim. Taking the most recent *past* game instead would score the model on
+    a result you already knew.
+
+    A player who never appears again after `date` — season-ending injury, sent
+    down, traded abroad — has no such row and drops out of the field. His true
+    remaining is zero, so every model is spared the players it would most like
+    to be caught holding. Model-versus-model comparison stays fair; the
+    absolute numbers are kinder than real life.
+    """
+    d = df[df["gameDate"] >= date]
+    return d.sort_values("gameDate").groupby("playerId", as_index=False).head(1)
+
+
+def walk_forward_inseason(
+    df: pd.DataFrame,
+    feature_cols: list[str],
+    target: str,
+    fit_predict,
+    checkpoints=(0.25, 0.5, 0.75),
+    season_col: str = "season_start",
+    min_train_seasons: int = 3,
+    n_picks: int = 30,
+    min_games: int = 1,
+) -> pd.DataFrame:
+    """
+    Walk forward by season, then score at *points in time* inside the test
+    season rather than over every row at once.
+
+    **Do not pool all the player-games.** `fantasy_remaining` shrinks toward
+    zero as a season runs out, so a model that knows nothing except how many
+    games are left already ranks the pooled rows almost perfectly. That score
+    is an illusion: it measures the calendar, not the player. Nobody ever
+    compares a player in October against a player in March — you compare the
+    players available to you *today*.
+
+    So each checkpoint takes one row per player (his latest game up to that
+    date), ranks the field, and asks the only question the add/drop screen
+    asks: **of the players in front of me right now, who scores most from
+    here?**
+
+    `checkpoints` are fractions of the way through the season. 0.25 is the
+    early call, where prior-season information still carries the model; 0.75 is
+    the run-in, where this season's evidence has taken over.
+
+    Returns one row per (season, checkpoint).
+    """
+    d = df.dropna(subset=[target]).copy()
+    seasons = sorted(d[season_col].unique())
+    rows = []
+
+    for i, test_season in enumerate(seasons):
+        if i < min_train_seasons:
+            continue
+        train = d[d[season_col] < test_season]
+        test = d[d[season_col] == test_season]
+        if train.empty or test.empty:
+            continue
+
+        # Fit once per season and predict every row; the checkpoints only
+        # decide which of those rows get scored.
+        test = test.assign(
+            _pred=np.asarray(fit_predict(train, test, feature_cols, target), dtype=float)
+        )
+
+        start, end = test["gameDate"].min(), test["gameDate"].max()
+        span = end - start
+        for frac in checkpoints:
+            snap = snapshot(test, start + span * frac)
+            snap = snap[snap["games_so_far"] >= min_games]
+            if len(snap) < n_picks:
+                continue
+            rows.append({
+                "test_season": int(test_season),
+                "checkpoint": frac,
+                "n_players": len(snap),
+                **all_metrics(snap[target].to_numpy(), snap["_pred"].to_numpy(), n_picks),
+            })
+
+    return pd.DataFrame(rows)
+
+
+def by_checkpoint(results: pd.DataFrame,
+                  keep=("rank_corr", "top25_hit")) -> pd.DataFrame:
+    """
+    The same run broken out by point in the season, averaged over seasons.
+
+    Worth looking at every time: a model can be strong in March and useless in
+    October, and the October call is the one that wins you the waiver wire.
+    """
+    cols = [c for c in keep if c in results.columns]
+    pct = [c for c in results.columns if c.startswith("pct_of_perfect@")]
+    return results.groupby("checkpoint")[cols + pct].mean()
+
+
 def summarise(results: pd.DataFrame, name: str = "") -> pd.Series:
     """Average the per-season results into one comparable row."""
     num = results.select_dtypes("number").drop(columns=["test_season"], errors="ignore")

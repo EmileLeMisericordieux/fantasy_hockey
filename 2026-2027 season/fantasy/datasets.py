@@ -36,7 +36,7 @@ def inseason_table(seasons=None, include_goalies=True, cache=True) -> pd.DataFra
     return _cached(
         "inseason", cache, seasons, include_goalies,
         lambda games, bios: features.add_inseason_target(
-            features.build_game_features(games, bios)
+            features.build_game_features(games, bios, games=games)
         ),
     )
 
@@ -135,6 +135,11 @@ RAW_OUTCOME_COLS = {
     "goalsAgainst", "shotsAgainst", "savePctg", "shutouts", "gamesStarted",
     "season_fantasy_total", "fantasy_remaining", "fp_per_game", "fp_per82",
     "games_played", "toi_per_game", "games_pct", "season_len",
+    # MoneyPuck's per-game columns: this game's own power-play time, expected
+    # goals and shots. The rolling builders in features.py turn them into
+    # something a row is allowed to know; the raw values never are.
+    "toi_pp", "toi_ev", "toi_pk", "xg_all", "xg_pp", "shots_all",
+    "game_score_all", "onice_xg_pct_ev",
 }
 
 

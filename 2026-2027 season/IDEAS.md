@@ -112,13 +112,55 @@ Unexplored, possibly rich, possibly a dead end.
 
 ---
 
+## In-season, now that a first version exists
+
+`datasets.inseason_table()` + `models.make_inseason_gbm()` + 
+`evaluate.walk_forward_inseason()`. It clears the best baseline by 13 points of
+`pct_of_perfect@30`. What it does not yet do:
+
+### A. Still no add/drop advisor
+The season tracker tab now replays a finished season on a date slider, so the
+model can be looked at before opening night. But nothing yet compares a
+rostered player against the best free agent at his position, which is the
+shortest path from a number to something that helps on a Tuesday night.
+
+### B. Schedule density, for a *week* rather than a season  — now the obvious next step
+Strength-of-schedule features exist and are nearly unused: `opp_ga_per_game_left`,
+`games_left_vs_weak` and `pct_left_vs_weak` all rank below 160 of 320. The
+reason is the target, not the features — `fantasy_remaining` covers about forty
+games, and over forty games everyone's schedule averages out.
+
+Point them at a week and they should come alive: **games in the next 7 days**,
+and how many of those are against the weak half. `fantasy/teams.py` already has
+the schedule and the team-strength bar; what is missing is a target measured
+over a week instead of a season.
+
+### C. Injuries are still invisible
+`games_missed_so_far` (rank 33) and `days_since_last_game` are the best proxies
+available: the team kept playing and he did not. They are the same fact several
+days late, and the model pays for it — in the 2024-25 replay it projects
+Kaprizov for 130 points from November and he scores 34.
+
+Real injury data would be worth more than any feature in this file. So would
+simply knowing who is dressed tonight.
+
+### D. The evaluation flatters everyone
+A player who never plays again after a checkpoint drops out of the field
+instead of scoring the zero he earned, because the snapshot picks each player's
+*next* game. Every model gets the same favour, so the comparison is fair, but
+the absolute numbers are kinder than a real season.
+
 ## Changes to the model itself, rather than new features
 
-### 1. Two-stage: rate × games  ⭐ likely the biggest single win
+### 1. Two-stage: rate × games  ⚠ **built for in-season, unproven**
 Model `fp_per_game` and `games_played` separately, multiply for the season total.
 Fixes the injury blind spot and makes both halves individually debuggable. Use
 it against the `fantasy_points` target — against `fp_per82` it has no advantage,
 because that target has already divided games back out.
+- `models.make_inseason_gbm(rate=True)` does this for the in-season model and
+  wins by a tenth of a point — better late, worse early. Not the big win the
+  star promised, at least not in that shape.
+- **Still open for the draft model**, which is where the star was aimed.
 
 ### 2. Optimise ranking, not error
 The pool is won by ordering players correctly. XGBoost's `rank:pairwise` /

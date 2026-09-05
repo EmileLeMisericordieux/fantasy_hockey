@@ -98,7 +98,8 @@ ranked, with the data source named for each item.
 | Used | October, once | continuously |
 
 The draft model matters most — it decides the roster. The in-season model drives
-add/drops once games are being played, and **does not exist yet.**
+add/drops once games are being played; a first version now exists, see
+"The bar, in-season" below.
 
 ## The bar
 
@@ -139,6 +140,135 @@ order — MoneyPuck 85.2%, plain XGBoost 84.2%, the weighted average 73.1% —
 because a per-game average has no concept of who stays healthy. Which target to
 use is a real decision, not a detail.
 
+## The bar, in-season
+
+Different question, different scoreboard. Predicting `fantasy_remaining`, walk
+forward by season, then score at three points *inside* each test season — 25%,
+50% and 75% of the way through. Eight test seasons, ~800 players in the field
+each time.
+
+| | RMSE | rank_corr | top-25 hit | % of perfect @30 |
+|---|---|---|---|---|
+| blend (pace shrunk toward last season) | 16.5 | 0.724 | 0.340 | 69.3% |
+| GBM, before the team/usage features | 11.4 | 0.779 | 0.417 | 80.3% |
+| GBM | 11.1 | 0.784 | **0.430** | 81.3% |
+| GBM, rate x games | **11.0** | **0.790** | 0.423 | **81.4%** |
+
+```bash
+python -c "
+from fantasy import datasets, evaluate, models
+df = datasets.inseason_table()
+feats = datasets.feature_columns(df, task='inseason')
+res = {k: evaluate.walk_forward_inseason(df, feats, 'fantasy_remaining', f) for k, f in {
+    'blend': models.make_inseason_baseline('blend'),
+    'gbm':   models.make_inseason_gbm(sample_every=10),
+}.items()}
+print(evaluate.compare(res, keep=('RMSE','rank_corr','top25_hit','pct_of_perfect@30')).round(3))
+"
+```
+
+**Never score this by pooling every player-game.** `fantasy_remaining` falls
+toward zero as a season runs out, so a model that knows nothing but the date
+ranks the pooled rows almost perfectly. That number measures the calendar, not
+the player. You never choose between a player in October and a player in March
+— you choose among the players in front of you *today*, which is what the
+checkpoints reproduce.
+
+**The gap is real but it is smaller than it first looks.** The first version of
+`pace` divided 82 by the player's *own* games played, which quietly hands extra
+nights to exactly the players least likely to be there for them, and made the
+GBM look 26 points better. Counting the calendar instead (`team_games_left`)
+took `pace` from 44.5% to 66.1%. If a baseline looks that bad, suspect the
+baseline.
+
+**Where the model earns it is October, not April.** Broken out by point in the
+season, `pct_of_perfect@30`:
+
+| | 25% in | 50% in | 75% in |
+|---|---|---|---|
+| blend | 68.4% | 71.4% | 68.0% |
+| GBM, before the team/usage features | 84.8% | 81.0% | 74.9% |
+| GBM | **84.6%** | **83.0%** | **76.3%** |
+
+Early on, pace is a dozen games of noise and the only real evidence about a
+player is last season — which is what the GBM has and the baselines mostly do
+not. By March everyone's pace has stabilised and the edge halves. Note this is
+the reverse of where you might expect: the model is most valuable when you know
+least.
+
+**Rate x games is a coin flip so far.** Predicting points per game left and
+multiplying, rather than predicting the total directly, wins by a tenth of a
+point. It is better late and worse early. Worth keeping because it is the
+honest shape of the problem, not because it has paid yet.
+
+## What the in-season model leans on
+
+The second wave of features — power-play usage, team standings, the remaining
+schedule, availability and expected goals — moved `pct_of_perfect@30` from
+80.3% to 81.3%. Modest overall, and **all of it arrives after Christmas**:
++2.0 points at the halfway mark, +1.4 in the run-in, and nothing at all in
+October, where the model already ran on last season. That is what you would
+expect from features that need games played before they mean anything.
+
+The importance is concentrated to a degree worth knowing about. Of 31 new
+columns, five do essentially all the work:
+
+| Rank of 320 | Feature | What it is |
+|---|---|---|
+| **1** | `expected_goals_left` | rolling expected goals x expected games left |
+| **4** | `expected_games_left` | schedule games left, scaled by how available he has been |
+| **8** | `team_games_left` | exact games left, off the real schedule |
+| **11** | `roll20_pp_toi` | power-play minutes a game, last 20 |
+| **16** | `roll5_pp_toi` | power-play minutes a game, last 5 |
+
+That is the two-stage shape — **a rate times a count of games** — arriving on
+its own. The model was previously spending trees rediscovering it.
+
+The other twenty-six are close to unused, and three of them are worth
+explaining rather than deleting:
+
+- **`pp_toi_delta5` (rank 304).** The *change* in power-play time adds almost
+  nothing once the model has the *level*. That is not a bug in the feature: a
+  player promoted to PP1 in November simply has high `roll20_pp_toi` by
+  December, and the promotion itself only carries information for a few weeks.
+  It stays because it is the right feature for a *weekly* question, which this
+  model is not answering.
+- **Opponent quality and schedule strength (ranks 163-308).** `fantasy_remaining`
+  spans about forty games, and over forty games the schedule averages out to
+  roughly the same for everyone. Strength of schedule is a real effect over
+  *one week*; it is nearly nothing over half a season.
+- **`changed_team` (rank 316, importance 0.0000).** It fires on 3.4% of rows,
+  and `team_rank` (286) is collinear with the goal-difference columns that beat
+  it. Rare and duplicated is a bad combination.
+
+None of this makes them wrong to have built. It makes them the wrong features
+for *this* target, and the right ones to reach for when the add/drop advisor
+starts answering "who helps me most **this week**".
+
+## Where team context comes from
+
+`fantasy/teams.py`, and it needs **no new download**. Everything is
+reconstructed from the player game logs already on disk:
+
+- **Who played whom** — `teamAbbrev` / `opponentAbbrev` / `gameId`, deduplicated,
+  is the schedule.
+- **The score** — a goalie row carries `goalsAgainst`, so a team's goals against
+  is its own goalies' total and its goals for is the opposition goalies'.
+- **The result** — a goalie row carries `decision`, W / L / O.
+
+Checked against the real 2024-25 table: all 32 teams, 82 games each, Winnipeg
+first on 116 points, San Jose last on 52, and total goals for equal to total
+goals against. Every figure is as of the *morning* of a game, never including
+it. Knowing the remaining opponents is not hindsight — the NHL publishes the
+schedule in advance — but knowing how those games turn out would be, and
+nothing uses it.
+
+Per-game power-play ice time and per-game expected goals are the one genuinely
+new download: `moneypuck.load_game_logs()`, about 13MB for eleven seasons.
+Unlike the season summaries these are **stored trimmed, not raw** — the full
+files are a quarter of a gigabyte. Widen `_GAME_KEEP` and re-fetch if you need
+more columns.
+
 ## Layout
 
 ```
@@ -146,7 +276,8 @@ fantasy/
   config.py      seasons, paths, real season lengths
   scoring.py     the pool's scoring rules
   data.py        NHL API + per-season cache
-  moneypuck.py   MoneyPuck advanced stats + per-season cache
+  moneypuck.py   MoneyPuck advanced stats, season and game level
+  teams.py       standings, team strength and schedule, from the game logs
   features.py    feature builders — the thin part, and the work
   datasets.py    assembles the draft table and the in-season table
   models.py      baselines and a plain GBM, all one signature
@@ -213,14 +344,26 @@ are one URL each in `moneypuck.BASE_URL`.
 
 ## Not built yet
 
-- **The whole in-season model.** Nothing predicts `fantasy_remaining`. Half the
-  project, and it needs to exist before opening night in October.
-- **Season tracker tab** is a stub with a TODO list in it.
+- **The in-season model is a first version only.** It trains and scores
+  honestly, but nothing consumes it: no add/drop screen, no "who should I pick
+  up this week", no weekly schedule weighting. And it has never seen a live
+  season — 2026-27 has not started, so it has only ever been tested on
+  history.
+- **Season tracker tab** now replays a finished season on a date slider, so
+  the model can be inspected before opening night. What it still lacks is an
+  **add/drop advisor** — nothing turns the projection into "pick up this
+  player".
+- **Injuries are invisible.** Nothing knows a player is hurt; the model infers
+  it from ice time drying up, several games late. The evaluation is kinder
+  still — a player who never returns after a checkpoint drops out of the
+  field entirely instead of scoring the zero he really earned.
 - **Goalies are half-modelled.** MoneyPuck adds GSAx, workload and shot
   quality faced (— `prev1_mp_g_*`), but there is still no team context and no
   starter share, which is most of what decides goalie wins.
-- **Two-stage rate × games**, ranking objectives, floor/ceiling — described in
-  `IDEAS.md`, none written.
+- **Ranking objectives and floor/ceiling** — described in `IDEAS.md`, neither
+  written. Two-stage rate × games now exists for the in-season model only
+  (`models.make_inseason_gbm(rate=True)`); the draft model still predicts
+  season totals directly.
 - **No rookies.** Every `prev*` feature is empty for a first-year player, so the
   `seasons_of_history >= 1` filter drops them.
 - **Retirements.** The candidate list is everyone who played last season,

@@ -43,6 +43,7 @@ season in `HISTORY_SEASONS` is available.
 from __future__ import annotations
 
 import io
+import zipfile
 from typing import Iterable
 
 import pandas as pd
@@ -117,6 +118,103 @@ def load_seasons(kind: str, seasons: Iterable[str] | None = None,
     """Concatenated MoneyPuck rows for several seasons."""
     seasons = list(seasons or HISTORY_SEASONS)
     frames = [season_stats(kind, s, refresh=refresh) for s in seasons]
+    frames = [f for f in frames if not f.empty]
+    if not frames:
+        return pd.DataFrame()
+    return pd.concat(frames, ignore_index=True)
+
+
+# ─── Game-by-game ──────────────────────────────────────────────────────────────
+# The season summaries above are one row per player-season. These are one row
+# per player-*game*, which is the only source we have for two things the NHL
+# API simply does not publish: power-play ice time in a single game, and
+# expected goals in a single game.
+
+
+GAMES_URL = "https://peter-tanner.com/moneypuck/downloads/seasonPlayersSummary/{kind}/{year}.zip"
+
+# Situation -> suffix, as stored. Kept deliberately short.
+_GAME_SITUATIONS = {"all": "all", "5on5": "ev", "5on4": "pp", "4on5": "pk"}
+
+# What we keep per situation. Unlike the season summaries, the game files are
+# NOT stored raw: one season is 236k rows x 157 columns, and eleven of those
+# would be a quarter of a gigabyte in a repo that commits its data. So this is
+# a deliberate trim -- widen the list here and re-fetch if you need more.
+_GAME_KEEP = ["icetime", "I_F_xGoals", "I_F_points", "I_F_goals",
+              "I_F_shotsOnGoal", "I_F_primaryAssists", "gameScore",
+              "onIce_xGoalsPercentage"]
+
+_GAME_KEYS = ["playerId", "gameId", "gameDate", "playerTeam", "opposingTeam",
+              "home_or_away", "position"]
+
+
+def fetch_game_logs(season: str, kind: str = "skaters") -> pd.DataFrame:
+    """
+    Download and reshape one season of MoneyPuck game-by-game rows.
+
+    Comes as a zipped CSV, five rows per player-game (one per situation). This
+    returns one row per player-game, situations spread across columns:
+    `toi_pp`, `xg_pp`, `toi_ev`, and so on. Ice time is converted to minutes to
+    match `toi_minutes` in the NHL logs; MoneyPuck stores seconds.
+    """
+    url = GAMES_URL.format(kind=kind, year=_mp_year(season))
+    resp = requests.get(url, headers=_HEADERS, timeout=600)
+    if resp.status_code == 404:
+        return pd.DataFrame()
+    resp.raise_for_status()
+
+    with zipfile.ZipFile(io.BytesIO(resp.content)) as z:
+        name = next(n for n in z.namelist() if n.endswith(".csv"))
+        raw = pd.read_csv(z.open(name))
+
+    raw = raw[raw["situation"].isin(_GAME_SITUATIONS)]
+    keep = [c for c in _GAME_KEEP if c in raw.columns]
+
+    frames = []
+    for sit, suffix in _GAME_SITUATIONS.items():
+        sub = raw[raw["situation"] == sit].set_index(["playerId", "gameId"])
+        sub = sub[~sub.index.duplicated(keep="first")]
+        cols = sub[keep].copy()
+        cols["icetime"] = cols["icetime"] / 60.0          # seconds -> minutes
+        rename = {
+            "icetime": f"toi_{suffix}", "I_F_xGoals": f"xg_{suffix}",
+            "I_F_points": f"points_{suffix}", "I_F_goals": f"goals_{suffix}",
+            "I_F_shotsOnGoal": f"shots_{suffix}",
+            "I_F_primaryAssists": f"primary_assists_{suffix}",
+            "gameScore": f"game_score_{suffix}",
+            "onIce_xGoalsPercentage": f"onice_xg_pct_{suffix}",
+        }
+        frames.append(cols.rename(columns=rename))
+
+    wide = pd.concat(frames, axis=1)
+
+    meta = (raw[raw["situation"] == "all"]
+            .set_index(["playerId", "gameId"])[[c for c in _GAME_KEYS if c not in ("playerId", "gameId")]])
+    meta = meta[~meta.index.duplicated(keep="first")]
+
+    out = meta.join(wide).reset_index()
+    out["season"] = str(season)
+    out["gameDate"] = pd.to_datetime(out["gameDate"], format="%Y%m%d", errors="coerce")
+    return out
+
+
+def game_logs(season: str, kind: str = "skaters", refresh: bool = False) -> pd.DataFrame:
+    """One season of MoneyPuck game-by-game rows, cached to parquet."""
+    path = RAW / f"moneypuck_games_{kind}_{season}.parquet"
+    if path.exists() and not refresh:
+        return pd.read_parquet(path)
+
+    df = fetch_game_logs(season, kind=kind)
+    if not df.empty:
+        df.to_parquet(path, index=False)
+    return df
+
+
+def load_game_logs(seasons: Iterable[str] | None = None, kind: str = "skaters",
+                   refresh: bool = False) -> pd.DataFrame:
+    """Concatenated MoneyPuck game-by-game rows across seasons."""
+    seasons = list(seasons or HISTORY_SEASONS)
+    frames = [game_logs(s, kind=kind, refresh=refresh) for s in seasons]
     frames = [f for f in frames if not f.empty]
     if not frames:
         return pd.DataFrame()
