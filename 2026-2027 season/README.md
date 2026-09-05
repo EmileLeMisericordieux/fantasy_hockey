@@ -12,7 +12,15 @@ python -m pip install -r requirements.txt
 ```
 
 Data is already on disk — 11 seasons, 2015-16 through 2025-26, 515k player-games
-including goalies. Nothing needs the network unless `data/raw/` is deleted.
+including goalies, plus MoneyPuck's advanced stats for the same 11 seasons.
+Nothing needs the network unless `data/raw/` is deleted.
+
+If it is, two scripts refill it:
+
+```bash
+python scripts/fetch_data.py        # NHL game logs and bios (slow, ~1h)
+python scripts/fetch_moneypuck.py   # MoneyPuck advanced stats (~15s)
+```
 
 > **Always launch with `python -m streamlit`, not bare `streamlit`.**
 > There can be several Python installs on one machine, each with its own
@@ -44,6 +52,9 @@ Read this once and the rest of the repo makes sense.
 | **TOI** | Time on ice, i.e. minutes played. The best single clue to how much a coach trusts a player. |
 | **PP / PP1** | Power play; PP1 is the top power-play unit. Being on it is worth a lot of fantasy points. |
 | **per 60** | A rate stat: production scaled to 60 minutes of ice time, so a fourth-liner and a star are compared fairly. |
+| **xG** | Expected goals. What a shot was *worth* given where and how it was taken. Sums to "how many goals should this player have scored". |
+| **GSAx** | Goals saved above expected. A goalie's xG faced minus goals allowed. Separates the goalie from the defence in front of him, which save percentage cannot. |
+| **PP share of team** | The fraction of his team's power-play time a player is on the ice for. PP1 regulars sit near 0.7, PP2 near 0.3. The cleanest read on power-play role there is. |
 
 ## Start here
 
@@ -95,28 +106,38 @@ Walk-forward across 2019-2025, predicting `fp_per82`:
 
 | | RMSE | rank_corr | top-50 hit | % of perfect draft |
 |---|---|---|---|---|
-| position average only | 35.8 | 0.211 | 0.291 | 74.8% |
-| repeat last season | 28.0 | 0.772 | 0.514 | 85.7% |
-| weighted average, 3 seasons | 25.4 | 0.778 | **0.523** | 86.1% |
-| untuned XGBoost | **21.4** | **0.821** | 0.506 | **86.7%** |
+| position average only | 36.3 | 0.225 | 0.423 | 79.6% |
+| repeat last season | 29.2 | 0.776 | 0.534 | 85.9% |
+| weighted average, 3 seasons | 26.4 | 0.783 | 0.546 | 86.3% |
+| untuned XGBoost | 22.2 | 0.827 | 0.509 | 85.9% |
+| XGBoost + MoneyPuck | **21.9** | **0.832** | **0.551** | **87.8%** |
 
-Two things fall out of this.
+All five re-measured in one pass, so they are comparable with each other.
 
-**Position alone gets you 74.8%.** Guess that every defenceman is the average
-defenceman and you already collect three quarters of a perfect draft. So the
-whole contest is the stretch from 74.8% to 100%, and everything above captures
-less than half of it.
+Three things fall out of this.
 
-**XGBoost wins on RMSE and barely drafts better.** It beats a three-line
-weighted average by 16% on error, and converts that into six tenths of a
-percentage point of draft value — while still hitting *fewer* of the true top
-fifty. Getting the numbers close and getting the order right are different jobs,
-and the pool only pays for order. So move `pct_of_perfect@50` and `rank_corr`,
-not RMSE.
+**Position alone gets you 79.6%.** Guess that every defenceman is the average
+defenceman and you already collect four fifths of a perfect draft. So the whole
+contest is the stretch from 79.6% to 100%, and everything above captures less
+than half of it.
 
-Switching the target to `fantasy_points` flips it — XGBoost 85.3% against the
-average's 76.2% — because a per-game average has no concept of who stays
-healthy. Which target to use is a real decision, not a detail.
+**RMSE and draft value are different jobs.** Plain XGBoost beats a three-line
+weighted average by 16% on error and still drafts *worse* — 85.9% against
+86.3%, hitting fewer of the true top fifty. Getting the numbers close and
+getting the order right are not the same thing, and the pool only pays for
+order. So move `pct_of_perfect@50` and `rank_corr`, not RMSE.
+
+**MoneyPuck is what breaks the tie.** Adding it is the first change that clears
+the weighted average on *both* — 87.8% of a perfect draft and 0.551 of the
+true top fifty. Roughly half the model's feature importance now sits in
+MoneyPuck columns, and the biggest of them is power-play deployment: how much
+of his team's power play a player is actually on the ice for. See "MoneyPuck"
+below.
+
+Switching the target to `fantasy_points` moves everything down but keeps the
+order — MoneyPuck 85.2%, plain XGBoost 84.2%, the weighted average 73.1% —
+because a per-game average has no concept of who stays healthy. Which target to
+use is a real decision, not a detail.
 
 ## Layout
 
@@ -125,6 +146,7 @@ fantasy/
   config.py      seasons, paths, real season lengths
   scoring.py     the pool's scoring rules
   data.py        NHL API + per-season cache
+  moneypuck.py   MoneyPuck advanced stats + per-season cache
   features.py    feature builders — the thin part, and the work
   datasets.py    assembles the draft table and the in-season table
   models.py      baselines and a plain GBM, all one signature
@@ -141,21 +163,71 @@ IDEAS.md         the backlog
 3. `rm data/processed/*` to rebuild the tables.
 4. Rerun the leaderboard and see whether it moved.
 
+## MoneyPuck
+
+`fantasy/moneypuck.py` pulls [moneypuck.com](https://moneypuck.com/data.htm),
+which publishes what the NHL API does not: an expected-goals model, shot-danger
+buckets, on-ice rates, and ice time **split by situation** — so power-play
+deployment stops being a guess.
+
+Two things make it cheap to use. **MoneyPuck's `playerId` is the NHL player
+id**, so everything joins on `playerId` + `season` with no name matching. And
+there is **one row per player-season, not per team** — traded players are
+already consolidated, credited to the team they finished with.
+
+Coverage is 11 of 11 seasons and 11,196 of 11,200 player-seasons. The four
+misses are 1-2 game cameos worth 0-3 fantasy points, dropped by the
+`games_played >= 20` filter anyway.
+
+```bash
+python scripts/fetch_moneypuck.py            # ~15s, all 11 seasons
+python scripts/fetch_moneypuck.py --refresh  # re-download; use in-season
+```
+
+`data/raw/moneypuck_<kind>_<season>.parquet` holds the CSV as published — all
+154 skater columns, all five situations — so curating a new feature never
+means re-downloading. `moneypuck.player_season_table()` collapses that to one
+join-ready row per player-season of 62 `mp_*` columns, all of them rates,
+shares or per-game figures.
+
+**Nothing raw is a feature.** Those columns are the season's own numbers, and
+handing the draft model those would be handing it the answer.
+`features.add_prior_season_features` lags every one of them into `prev1_mp_*`,
+`prev2_mp_*`, `prev3_mp_*`, and *those* are what get registered — 199 of the
+draft model's 244 features.
+
+To A/B the whole block, filter on the name:
+
+```python
+feats = datasets.feature_columns(df, task="draft")
+without_mp = [c for c in feats if "mp_" not in c]
+```
+
+What the model actually leans on, in importance order: `mp_game_score_per_game`,
+`mp_pp_toi_share_of_team`, `mp_pp_toi_per_game`, `mp_toi_rank_team`. Power-play
+role, three different ways, exactly as `IDEAS.md` predicted.
+
+Still on the table and not fetched: `lines.csv` (line combinations, the real
+linemate feature) and `teams.csv` (team offensive context, `IDEAS.md` #7). Both
+are one URL each in `moneypuck.BASE_URL`.
+
 ## Not built yet
 
 - **The whole in-season model.** Nothing predicts `fantasy_remaining`. Half the
   project, and it needs to exist before opening night in October.
 - **Season tracker tab** is a stub with a TODO list in it.
-- **Goalies are in the data and nothing else.** No team context, no starter
-  share. A full roster slot going unmodelled.
+- **Goalies are half-modelled.** MoneyPuck adds GSAx, workload and shot
+  quality faced (— `prev1_mp_g_*`), but there is still no team context and no
+  starter share, which is most of what decides goalie wins.
 - **Two-stage rate × games**, ranking objectives, floor/ceiling — described in
   `IDEAS.md`, none written.
 - **No rookies.** Every `prev*` feature is empty for a first-year player, so the
   `seasons_of_history >= 1` filter drops them.
 - **Retirements.** The candidate list is everyone who played last season,
   including players now retired or in Europe.
-- **Feature set is thin** — rolling averages, prior seasons, age, draft pick.
-  Nothing on power play, ice time, linemates or schedule.
+- **Still no schedule or real linemates.** MoneyPuck covers power play, ice
+  time, shot quality and on-ice context; `lines.csv` and the team schedule are
+  the two obvious gaps left.
 
 ## Data quirks
 

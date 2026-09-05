@@ -90,7 +90,7 @@ def upcoming_draft_table(target_season: str | None = None,
     target_start = int(str(target_season)[:4])
 
     games, bios = _load(seasons, include_goalies)
-    totals = features.season_totals(games)
+    totals = features.add_moneypuck(features.season_totals(games))
 
     # Everyone who played in the most recent completed season is a candidate.
     latest = totals["season_start"].max()

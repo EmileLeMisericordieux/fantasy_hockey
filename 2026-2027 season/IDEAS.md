@@ -6,6 +6,11 @@ because "we couldn't get the data" is how a day like this dies.
 Claim an item by putting your name next to it. Register whatever you add in
 `fantasy/features.py` so it gets picked up.
 
+**MoneyPuck landed and moved several of these.** `fantasy/moneypuck.py` now
+supplies expected goals, shot danger, on-ice rates and situational ice time for
+all 11 seasons. Items 1, 2, 3 and 6 below are partly done as a result; what is
+left of each is marked. See the MoneyPuck section of the README.
+
 Unfamiliar terms are in the README glossary.
 
 **The scoring rules bias everything toward defencemen.** A D goal is worth 3 and
@@ -17,30 +22,32 @@ an assist 2, versus 2 and 1 for forwards. A 50-point defenceman scores like a
 
 ## Do these first — new features
 
-### 1. Power-play role  ⭐ highest value per line of code
-`powerPlayPoints` is already in every game log and nothing uses it yet. PP1
-versus PP2 is one of the largest single drivers of fantasy scoring, and it is
-*sticky* year to year — a player who ran PP1 in March usually runs it in October.
-- `prev1_pp_share` = player's PP points ÷ team's PP points
-- `pp_points_per60`, and PP share trend over the last 20 games
-- Source: game logs, already downloaded.
+### 1. Power-play role  ✅ **largely done** — and it was the biggest win
+Confirmed as predicted: this is now the largest MoneyPuck contribution to the
+draft model. `prev1_mp_pp_toi_share_of_team` (the fraction of his team's power
+play a player is on the ice for) and `prev1_mp_pp_toi_per_game` sit second and
+third in feature importance behind raw prior scoring.
+- Built: `mp_pp_toi_per_game`, `mp_pp_toi_share`, `mp_pp_toi_share_of_team`,
+  `mp_pp_toi_rank_team`, `mp_pp_points_per60`, `mp_pp_xgoals_per60`.
+- **Still open:** the *trend* within a season. Season summaries cannot show a
+  player being promoted to PP1 in February, which is exactly the signal you
+  want. Needs game-level data.
 
-### 2. Ice time as opportunity
-TOI is the best available proxy for what a coach thinks of a player, and
-opportunity predicts production more reliably than past production does.
-- `toi_per_game` last season, plus its trend across the season's last 20 games
-- `toi_rank_on_team` — rank among the player's own team's forwards/D
-- Rising TOI on a young player is the classic breakout signal.
-- Source: game logs.
+### 2. Ice time as opportunity  ✅ **largely done**
+- Built: `mp_toi_per_game` split four ways (all / even strength / PP / PK), and
+  `mp_toi_rank_team`, the rank among the player's own team's forwards or D —
+  which is in the model's top five features.
+- **Still open:** the within-season trend, and the breakout signal that comes
+  from rising TOI on a young player. Both need game-level ice time.
 
-### 3. Shooting-percentage regression
-The single most reliable projection edge in hockey. A player shooting 20% is
-mostly lucky and will regress; his shot *volume* will not.
-- `career_shooting_pct` versus `prev1_shooting_pct` → the gap is a regression signal
-- `expected_goals ≈ prev1_shots × career_shooting_pct`
-- Project shots and shooting% separately, then multiply. Nearly always beats
-  projecting goals directly.
-- Source: game logs.
+### 3. Shooting-percentage regression  ✅ **the inputs exist**
+MoneyPuck's expected-goals model is a much better regression signal than a
+career shooting average, because it knows *where* the shots came from.
+- Built: `mp_shooting_pct`, `mp_x_shooting_pct`, `mp_goals_above_expected`,
+  `mp_xgoals_per60`, plus the shot-danger split. Sanity-checks correctly —
+  Draisaitl +20.6 goals above expected in 2024-25, Hyman —11.0.
+- **Still open:** the *use* of it. Nothing yet projects shot volume and
+  finishing separately and multiplies them; the model just gets both columns.
 
 ### 4. Durability / games-played modelling
 Season totals are `rate × games`, and nothing currently models the games half —
@@ -58,14 +65,15 @@ not symmetric. `age` and `age_sq` exist but a tree model handles this awkwardly.
 - Or fit the empirical curve from the data and use it as an offset
 - Source: bios, already downloaded.
 
-### 6. Goalies — an unmodelled position
-Goalies are fetched (`data.fetch_goalie_summary`, a separate endpoint from the
-skaters) and scored, and that is all. Greenfield, and a full roster slot.
-- Wins are mostly a *team* stat — team quality matters more than the goalie
-- `starter_share` = games started ÷ team games; the backup/starter split is
-  most of the variance
-- `savePctg` regresses hard; team goals-against is more predictive
-- Source: goalie logs (`decision`, `shutouts`, `savePctg`, `gamesStarted`).
+### 6. Goalies — half-modelled now
+- Built: 18 `mp_g_*` columns, headlined by **GSAx** (goals saved above
+  expected), which is the standard way to separate a goalie from the defence in
+  front of him. Ranks Hellebuyck first in 2024-25, his Vezina and Hart season.
+  Also workload, shot danger faced, and expected save percentage.
+- **Still open, and it is the bigger half:** `starter_share` = games started ÷
+  *team* games. Wins are mostly a team stat, and the backup/starter split is
+  most of the variance. Needs team schedule data, which MoneyPuck's
+  `teams.csv` or `client.stats.team_summary` would give you.
 
 ---
 

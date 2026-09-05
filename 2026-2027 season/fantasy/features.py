@@ -24,6 +24,7 @@ from __future__ import annotations
 import numpy as np
 import pandas as pd
 
+from . import moneypuck
 from .config import DEFENCE_POS, GOALIE_POS, season_length
 
 # column name -> when you would know it
@@ -212,6 +213,33 @@ def season_totals(games: pd.DataFrame) -> pd.DataFrame:
     return out.sort_values(["playerId", "season_start"])
 
 
+def add_moneypuck(totals: pd.DataFrame, table: pd.DataFrame | None = None) -> pd.DataFrame:
+    """
+    Attach MoneyPuck's advanced stats to the player-season table.
+
+    Expected goals, shot danger, on-ice rates and situational ice time -- the
+    power-play split above all, which the NHL API does not expose at all. See
+    `fantasy/moneypuck.py`; it joins on `playerId` + `season` because MoneyPuck
+    uses NHL player ids.
+
+    **Nothing is registered here on purpose.** These columns are the season's
+    own numbers, and handing the draft model those would be handing it the
+    answer. `add_prior_season_features` lags every numeric `mp_*` column into
+    `prev1_mp_*`, `prev2_mp_*`, `prev3_mp_*`, and *those* are the features.
+
+    A no-op if the data has not been downloaded -- run
+    `python scripts/fetch_moneypuck.py`.
+    """
+    mp = moneypuck.player_season_table() if table is None else table
+    if mp.empty:
+        return totals
+
+    out = totals.copy()
+    out["playerId"] = out["playerId"].astype("int64")
+    out["season"] = out["season"].astype(str)
+    return out.merge(mp, on=["playerId", "season"], how="left")
+
+
 def add_prior_season_features(totals: pd.DataFrame, n_back: int = 3) -> pd.DataFrame:
     """
     For each player-season, attach what was known from previous seasons.
@@ -226,17 +254,35 @@ def add_prior_season_features(totals: pd.DataFrame, n_back: int = 3) -> pd.DataF
                          "goals", "assists", "shots", "toi_per_game", "powerPlayPoints"]
              if c in df.columns]
 
+    # Every MoneyPuck column gets the same treatment, if `add_moneypuck` ran.
+    # They are prior-season facts exactly like the rest of this list, so they
+    # lag the same way -- and lagging is what makes them legal to use.
+    carry += sorted(c for c in df.columns
+                    if c.startswith("mp_") and pd.api.types.is_numeric_dtype(df[c]))
+
+    # Built as one block and concatenated once. Inserting a few hundred columns
+    # one at a time fragments the frame badly enough that pandas warns about it.
+    lagged = {}
     for lag in range(1, n_back + 1):
         for col in carry:
             name = f"prev{lag}_{col}"
-            df[name] = g[col].shift(lag)
+            lagged[name] = g[col].shift(lag)
             register(name, "before_season")
+    df = pd.concat([df, pd.DataFrame(lagged, index=df.index)], axis=1)
 
     # Weighted average of the last 3 seasons, where recent seasons count more
     # (last season weight 5, the one before 4, the one before that 3). Players
     # with fewer than 3 seasons just use what they have.
     weights = [5, 4, 3][:n_back]
-    for col in ("fp_per82", "games_pct"):
+    smoothed = ["fp_per82", "games_pct"]
+    # Role and underlying rates are noisy in any single season -- a three-year
+    # blend of "how much does this player play, and how good are his chances"
+    # is steadier than last year alone.
+    smoothed += [c for c in ("mp_toi_per_game", "mp_pp_toi_per_game",
+                             "mp_pp_toi_share_of_team", "mp_xgoals_per60",
+                             "mp_points_per60", "mp_onice_xg_pct",
+                             "mp_g_gsax_per60") if c in df.columns]
+    for col in smoothed:
         cols = [f"prev{lag}_{col}" for lag in range(1, n_back + 1) if f"prev{lag}_{col}" in df]
         if not cols:
             continue
@@ -265,6 +311,7 @@ def build_draft_table(games: pd.DataFrame, bios: pd.DataFrame) -> pd.DataFrame:
     fantasy output as the target.
     """
     totals = season_totals(games)
+    totals = add_moneypuck(totals)
     df = add_prior_season_features(totals)
     df = add_position_dummies(df)
     df = add_bio(df, bios)
